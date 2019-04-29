@@ -7,6 +7,7 @@
 
 #include "sh.h"
 #include <stdlib.h>
+#include <string.h>
 
 int get_tab_len(char **tab)
 {
@@ -48,9 +49,9 @@ char **tabdup(char **env)
     int i = 0;
 
     if (copy == NULL)
-        exit (84);
+        my_puterr("malloc error.\n");
     while (env[i] != NULL) {
-        copy[i] = my_strdup(env[i], 0);
+        copy[i] = strdup(env[i]);
         i++;
     }
     copy[i] = NULL;

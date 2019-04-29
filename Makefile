@@ -7,7 +7,7 @@
 
 SRC	=	src/main.c	\
 		src/utils/puts.c \
-		src/tab_utils.c
+		src/utils/tab_utils.c
 
 OBJ	=	$(SRC:.c=.o)
 
