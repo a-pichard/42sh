@@ -51,7 +51,8 @@ char **tabdup(char **env)
     if (copy == NULL)
         my_puterr("malloc error.\n");
     while (env[i] != NULL) {
-        copy[i] = strdup(env[i]);
+        if ((copy[i] = strdup(env[i])) == NULL)
+            my_puterr("malloc error.\n");
         i++;
     }
     copy[i] = NULL;
