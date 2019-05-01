@@ -23,7 +23,7 @@ BLUE	=	\e[1;34m
 SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/utils/puts.c	\
 		$(SRC_DIR)/utils/tab_utils.c	\
-		$(SRC_DIR)/utils/verif_xmalloc.c \
+		$(SRC_DIR)/utils/verif_malloc.c \
 
 debug:			CFLAGS += -g
 

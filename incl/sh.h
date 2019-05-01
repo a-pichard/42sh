@@ -20,6 +20,6 @@ int get_tab_len(char **tab);
 void print_tab(char **wordtab);
 void destroy_tab(char **wordtab);
 char **tabdup(char **env);
-void *xxmalloc(int);
+void *xmalloc(int);
 
 #endif

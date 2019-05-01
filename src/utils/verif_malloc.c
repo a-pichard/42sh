@@ -7,7 +7,7 @@
 
 #include "sh.h"
 
-void *xxmalloc(int size)
+void *xmalloc(int size)
 {
     void *ptr = malloc(size);
     char err_msg[] = "xmalloc failed !\n";
