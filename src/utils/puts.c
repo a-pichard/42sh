@@ -24,6 +24,12 @@ void my_putstr(char const *str)
     }
 }
 
+void my_puterr(char const *str)
+{
+    write(2, str, strlen(str));
+    exit(84);
+}
+
 int my_putnbr(int n)
 {
     long k = n;
@@ -40,10 +46,4 @@ int my_putnbr(int n)
     } else {
         my_putchar(k + 48);
     }
-}
-
-void my_puterr(char const *str)
-{
-    write(2, str, strlen(str));
-    exit(84);
 }
