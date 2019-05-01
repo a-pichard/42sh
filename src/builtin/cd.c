@@ -22,6 +22,9 @@ void check_dir(char *path, char *temp_prev)
     } else if (S_ISDIR(myfile.st_mode) == 0) {
         my_puterr(path);
         my_puterr(": Not a directory.\n");
+    } else {
+        my_puterr(path);
+        my_puterr(": Permission denied.\n");
     }
     free(temp_prev);
 }
