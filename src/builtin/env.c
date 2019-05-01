@@ -8,7 +8,7 @@
 #include "sh.h"
 #include "vec.h"
 
-int my_env()
+int my_env(vec_t *info, shell_t *shell)
 {
     for (int i = 0; environ[i] != NULL; i++) {
         write(1, environ[i], strlen(environ[i]));
