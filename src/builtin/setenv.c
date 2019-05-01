@@ -11,7 +11,7 @@
 
 static int char_isalpha(char c)
 {
-    if (c >= 'A' && c <= 'Z' || c >= 'a' && c <=  'z')
+    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <=  'z'))
         return (1);
     else if (c == '_')
         return (1);
@@ -23,7 +23,7 @@ static int char_isalpha(char c)
 
 static int char_isalpha_num(char c)
 {
-    if (c >= 'A' && c <= 'Z' || c >= 'a' && c <=  'z' || c == '_')
+    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <=  'z') || c == '_')
         return (1);
     else if (c >= '0' && c <= '9')
         return (1);

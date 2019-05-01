@@ -7,6 +7,8 @@
 
 #include "sh.h"
 #include "vec.h"
+#include <string.h>
+#include <unistd.h>
 
 int my_env(vec_t *info, shell_t *shell)
 {
