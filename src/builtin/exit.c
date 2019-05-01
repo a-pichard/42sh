@@ -7,12 +7,16 @@
 
 #include "sh.h"
 #include "vec.h"
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 int my_exit(vec_t *params, shell_t *shell)
 {
     my_putstr("exit\n");
-    if (params->element == 2) {
+    if (params->element == 2)
         exit(atoi(params->content[1]));
-    } else
+    else
         exit(shell->status);
+    return (0);
 }

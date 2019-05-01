@@ -10,6 +10,12 @@
 #include "vec.h"
 #define SEPARATOR {";", "|", ">>", "<<", ">", "<", NULL}
 extern char **environ;
+typedef struct shell_s shell_t;
+
+struct shell_s
+{
+    int status;
+};
 
 void my_putchar(char c);
 void my_putstr(char const *str);
@@ -39,7 +45,4 @@ int my_setenv(vec_t *params, shell_t *shell);
 int my_unsetenv(vec_t *params, shell_t *shell);
 int my_exit(vec_t *params, shell_t *shell);
 int my_echo(vec_t *params, shell_t *shell);
-
-
-
 #endif

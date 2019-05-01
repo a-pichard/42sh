@@ -27,5 +27,4 @@ void my_putstr(char const *str)
 void my_puterr(char const *str)
 {
     write(2, str, strlen(str));
-    exit(84);
 }
