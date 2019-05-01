@@ -5,6 +5,7 @@
 ** exit
 */
 
+#include "sh.h"
 #include "vec.h"
 
 int my_exit(vec_t *params)

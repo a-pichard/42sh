@@ -5,6 +5,7 @@
 ** env
 */
 
+#include "sh.h"
 #include "vec.h"
 
 int my_env(vec_t *params)

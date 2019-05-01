@@ -5,6 +5,7 @@
 ** unsetenv
 */
 
+#include "sh.h"
 #include "vec.h"
 
 int my_unsetenv(vec_t *params)

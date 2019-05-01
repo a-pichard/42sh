@@ -8,10 +8,6 @@
 #ifndef SH_H_
 #define SH_H_
 #include "vec.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 void my_putchar(char c);
 void my_putstr(char const *str);

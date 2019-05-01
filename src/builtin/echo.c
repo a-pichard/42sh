@@ -5,6 +5,7 @@
 ** echo
 */
 
+#include "sh.h"
 #include "vec.h"
 
 int my_echo(vec_t *params)
