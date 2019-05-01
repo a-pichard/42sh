@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-int my_unsetenv(vec_t *params)
+int my_unsetenv(vec_t *params, shell_t *shell)
 {
     int status = 0;
 
