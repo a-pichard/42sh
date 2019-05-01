@@ -16,6 +16,8 @@ int main(void)
     shell_t shell = {0};
 
     while (42) {
+        if (isatty(0) == 1)
+            my_putstr("salut bg> ");
         int r = getline(&str, &n, stdin);
         if (str[r - 1] == '\n') {
             str[r - 1] = '\0';
