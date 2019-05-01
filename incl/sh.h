@@ -14,6 +14,9 @@ void my_puterr(char const *str);
 int get_tab_len(char **tab);
 void print_tab(char **wordtab);
 void destroy_tab(char **wordtab);
-char **tabdup(char **env);
+
+int index_of(char c, char *tab);
+int index_of_str(char *str, char **tab);
+
 
 #endif
