@@ -9,13 +9,20 @@
 #include <stdio.h>
 #include <unistd.h>
 
+void init_shell(shell_t *sh)
+{
+    sh->status = 0;
+    sh->prev_dir = NULL;
+}
+
 int main(void)
 {
     char *str = NULL;
     char *separators[] = SEPARATOR;
     size_t n = 0;
-    shell_t shell = {0};
+    shell_t shell;
 
+    init_shell(&shell);
     while (42) {
         if (isatty(0) == 1)
             my_putstr("salut bg> ");

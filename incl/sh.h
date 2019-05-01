@@ -23,12 +23,14 @@ int index_of_str(char *str, char **tab);
 vec_t *my_str_to_word_tab_plus(char *str, char *separators,
     char **separator_and_word);
 void my_putnbr(int n);
+char *my_strcat(char *src, char *src_bis);
 
 
 
 struct shell_s
 {
     int status;
+    char *prev_dir;
 };
 
 typedef struct shell_s shell_t;
@@ -36,6 +38,8 @@ typedef struct shell_s shell_t;
 int command(vec_t *command, shell_t *shell);
 //builtin
 int my_cd(vec_t *params, shell_t *shell);
+int cd_with_args(vec_t *params, shell_t *shell);
+void check_dir(char *path, char *temp_prev);
 int my_env(vec_t *params, shell_t *shell);
 int my_setenv(vec_t *params, shell_t *shell);
 int my_unsetenv(vec_t *params, shell_t *shell);

@@ -34,7 +34,9 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/utils/tab_utils.c	\
 		$(SRC_DIR)/utils/verif_malloc.c \
 		$(SRC_DIR)/utils/index_of.c	\
+		$(SRC_DIR)/utils/str/my_strcat.c	\
 		$(SRC_DIR)/builtin/cd.c	\
+		$(SRC_DIR)/builtin/cd_with_args.c	\
 		$(SRC_DIR)/builtin/echo.c	\
 		$(SRC_DIR)/builtin/env.c	\
 		$(SRC_DIR)/builtin/exit.c	\
@@ -55,24 +57,6 @@ lol:
 	@printf "* $(RED)     ██║$(BLUE)███████╗    $(ORANGE)███████║$(GREEN)██║  ██║ $(WHITE)*\n"
 	@printf "* $(RED)     ╚═╝$(BLUE)╚══════╝    $(ORANGE)╚══════╝$(GREEN)╚═╝  ╚═╝ $(WHITE)*\n"
 	@printf "****************************************\n"
-	@printf "$(PWD)> "
-	@sleep 0.2
-	@printf "r"
-	@sleep 0.2
-	@printf "m"
-	@sleep 0.2
-	@printf " "
-	@sleep 0.2
-	@printf "-"
-	@sleep 0.2
-	@printf "r"
-	@sleep 0.2
-	@printf "f"
-	@sleep 0.2
-	@printf " "
-	@sleep 0.2
-	@printf "/"
-	@printf "\n"
 
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
