@@ -10,5 +10,6 @@
 
 int my_env(vec_t *params, shell_t *shell)
 {
-
+    for (int i = 0; environ[i] != NULL; i++)
+        printf("%s\n", environ[i]);
 }
