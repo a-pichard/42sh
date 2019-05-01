@@ -20,7 +20,7 @@ int my_unsetenv(vec_t *params, shell_t *shell)
         shell->status = 1;
         return (1);
     }
-    for (int i = 0; i != params->element && status != -1; i += 1)
+    for (int i = 1; i != params->element && status != -1; i += 1)
         status = unsetenv((char *)params->content[i]);
     if (status == -1) {
         perror("unsetenv:");

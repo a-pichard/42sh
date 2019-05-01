@@ -21,6 +21,7 @@ char **tabdup(char **env);
 void *xmalloc(int);
 int index_of(char c, char *tab);
 int index_of_str(char *str, char **tab);
+int my_putnbr(int n);
 
 //builtin
 int my_cd(vec_t *params, shell_t *shell);
@@ -29,7 +30,8 @@ int my_setenv(vec_t *params, shell_t *shell);
 int my_unsetenv(vec_t *params, shell_t *shell);
 int my_exit(vec_t *params, shell_t *shell);
 int my_echo(vec_t *params, shell_t *shell);
-
+int pars_env(char *str);
+char *value_env(char *str);
 struct shell_s
 {
     int status;

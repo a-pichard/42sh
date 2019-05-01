@@ -22,6 +22,7 @@ BLUE	=	\e[1;34m
 
 SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/utils/vec/apply.c	\
+		$(SRC_DIR)/builtin/pars_env.c	\
 		$(SRC_DIR)/utils/vec/create.c	\
 		$(SRC_DIR)/utils/vec/destroy.c	\
 		$(SRC_DIR)/utils/vec/get.c	\
