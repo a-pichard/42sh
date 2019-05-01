@@ -21,5 +21,8 @@ void print_tab(char **wordtab);
 void destroy_tab(char **wordtab);
 char **tabdup(char **env);
 void *xmalloc(int);
+int index_of(char c, char *tab);
+int index_of_str(char *str, char **tab);
+
 
 #endif
