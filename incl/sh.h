@@ -9,6 +9,8 @@
 #define SH_H_
 #include "vec.h"
 
+extern char **environ;
+
 void my_putchar(char c);
 void my_putstr(char const *str);
 void my_puterr(char const *str);
