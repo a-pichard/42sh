@@ -10,12 +10,6 @@
 #include "vec.h"
 #define SEPARATOR {";", "|", ">>", "<<", ">", "<", NULL}
 extern char **environ;
-typedef struct shell_s shell_t;
-
-struct shell_s
-{
-    int status;
-};
 
 void my_putchar(char c);
 void my_putstr(char const *str);
@@ -30,14 +24,16 @@ int index_of_str(char *str, char **tab);
 vec_t *my_str_to_word_tab_plus(char *str, char *separators,
     char **separator_and_word);
 
+
+
 struct shell_s
 {
     int status;
 };
+
 typedef struct shell_s shell_t;
-
+//command
 int command(vec_t *command, shell_t *shell);
-
 //builtin
 int my_cd(vec_t *params, shell_t *shell);
 int my_env(vec_t *params, shell_t *shell);
