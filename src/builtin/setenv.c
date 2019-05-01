@@ -60,15 +60,17 @@ static int do_setenv(vec_t *info)
     
 }
 
-int my_setenv(vec_t *info)
+int my_setenv(vec_t *info, shell_t *shell)
 {
     if (info->element == 1) {
-        return (my_env(info));
+        return (my_env(info, shell));
     } else if (info->element < 1 || info->element > 3) {
         my_puterr("setenv: Too many arguments.\n");
+        shell->status = 1;
         return (1);
     }
     else {
-        return (do_setenv(info));
+        shell->status = do_setenv(info);
+        return (shell->status);
     }
 }
