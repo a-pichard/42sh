@@ -9,7 +9,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-void destroye_vec(vec_t *vec, void(destroye(void *)))
+void destroy_vec(vec_t *vec, void(destroye(void *)))
 {
     size_t i = 0;
 

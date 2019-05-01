@@ -6,6 +6,7 @@
 */
 
 #include "vec.h"
+#include "sh.h"
 #include <stddef.h>
 #include <stdlib.h>
 

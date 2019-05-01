@@ -23,13 +23,12 @@ BLUE	=	\e[1;34m
 SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/utils/vec/apply.c	\
 		$(SRC_DIR)/utils/vec/create.c	\
-		$(SRC_DIR)/utils/vec/destroye.c	\
+		$(SRC_DIR)/utils/vec/destroy.c	\
 		$(SRC_DIR)/utils/vec/get.c	\
 		$(SRC_DIR)/utils/vec/pop.c	\
 		$(SRC_DIR)/utils/vec/push.c	\
 		$(SRC_DIR)/utils/vec/set.c	\
 		$(SRC_DIR)/utils/str/my_str_to_word_tab_plus.c	\
-		$(SRC_DIR)/utils/str/my_str_to_word_tab.c	\
 		$(SRC_DIR)/utils/puts.c	\
 		$(SRC_DIR)/utils/tab_utils.c	\
 		$(SRC_DIR)/utils/verif_malloc.c \

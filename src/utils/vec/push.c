@@ -8,6 +8,7 @@
 #include "vec.h"
 #include <stddef.h>
 #include <stdlib.h>
+#include "sh.h"
 
 void push(vec_t *vec, void *data)
 {
