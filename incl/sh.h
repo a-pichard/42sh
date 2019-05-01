@@ -22,7 +22,7 @@ int index_of(char c, char *tab);
 int index_of_str(char *str, char **tab);
 vec_t *my_str_to_word_tab_plus(char *str, char *separators,
     char **separator_and_word);
-int my_putnbr(int n);
+void my_putnbr(int n);
 
 
 

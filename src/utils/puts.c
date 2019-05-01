@@ -30,7 +30,7 @@ void my_puterr(char const *str)
     exit(84);
 }
 
-int my_putnbr(int n)
+void my_putnbr(int n)
 {
     long k = n;
     long i;

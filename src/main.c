@@ -8,7 +8,7 @@
 #include "sh.h"
 #include <stdio.h>
 
-int main(int ac, char **av)
+int main(void)
 {
     char *str = NULL;
     char *separators[] = SEPARATOR;
@@ -21,9 +21,6 @@ int main(int ac, char **av)
             str[r - 1] = '\0';
         }
         vec_t *vec = my_str_to_word_tab_plus(str, " \t", separators);
-        for (int i = 0; i < vec->element; i++) {
-            printf("[%d][%s]", i, vec->content[i]);
-        }
         command(vec, &shell);
     }
 }

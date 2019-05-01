@@ -18,4 +18,5 @@ int my_env(vec_t *info, shell_t *shell)
         write(1, environ[i], strlen(environ[i]));
         write(1, "\n", 1);
     }
+    return (0);
 }
