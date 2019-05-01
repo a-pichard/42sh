@@ -9,7 +9,6 @@
 #define SH_H_
 #include "vec.h"
 #define SEPARATOR {";", "|", ">>", "<<", ">", "<", NULL}
-extern char **environ;
 
 void my_putchar(char c);
 void my_putstr(char const *str);
@@ -42,4 +41,6 @@ int my_setenv(vec_t *params, shell_t *shell);
 int my_unsetenv(vec_t *params, shell_t *shell);
 int my_exit(vec_t *params, shell_t *shell);
 int my_echo(vec_t *params, shell_t *shell);
+char *value_env(char *str);
+int pars_env(char *str);
 #endif
