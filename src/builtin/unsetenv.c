@@ -17,13 +17,13 @@ int my_unsetenv(vec_t *params)
 
     if (params->element == 1) {
         my_puterr("unsetenv: Too few arguments.\n");
-        return (-1);
+        return (1);
     }
     for (int i = 0; i != params->element && status != -1; i += 1)
         status = unsetenv((char *)params->content[i]);
     if (status == -1) {
         perror("unsetenv:");
-        return(1);
+        return (1);
     }
     return (0);
 }
