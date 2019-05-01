@@ -33,6 +33,12 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/utils/tab_utils.c	\
 		$(SRC_DIR)/utils/verif_malloc.c \
 		$(SRC_DIR)/utils/index_of.c	\
+		$(SRC_DIR)/builtin/cd.c	\
+		$(SRC_DIR)/builtin/echo.c	\
+		$(SRC_DIR)/builtin/env.c	\
+		$(SRC_DIR)/builtin/exit.c	\
+		$(SRC_DIR)/builtin/setenv.c	\
+		$(SRC_DIR)/builtin/unsetenv.c	\
 
 debug:			CFLAGS += -g
 
@@ -71,6 +77,7 @@ $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)/utils
 	@mkdir $(OBJ_DIR)/utils/str
 	@mkdir $(OBJ_DIR)/utils/vec
+	@mkdir $(OBJ_DIR)/builtin
 
 OBJ	=	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 

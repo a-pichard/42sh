@@ -7,7 +7,7 @@
 
 #ifndef SH_H_
 #define SH_H_
-
+#include "vec.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,6 +23,15 @@ char **tabdup(char **env);
 void *xmalloc(int);
 int index_of(char c, char *tab);
 int index_of_str(char *str, char **tab);
+
+
+//builtin
+int my_cd(vec_t *params);
+int my_env(vec_t *params);
+int my_setenv(vec_t *params);
+int my_unsetenv(vec_t *params);
+int my_exit(vec_t *params);
+int my_echo(vec_t *params);
 
 
 #endif
