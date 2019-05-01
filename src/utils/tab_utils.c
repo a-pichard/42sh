@@ -48,11 +48,11 @@ char **tabdup(char **env)
     char **copy = xmalloc(sizeof(char *) * (get_tab_len(env) + 1));
     int i = 0;
 
-    if (copy == NULL)
-        my_puterr("xmalloc error.\n");
     while (env[i] != NULL) {
-        if ((copy[i] = strdup(env[i])) == NULL)
-            my_puterr("xmalloc error.\n");
+        if ((copy[i] = strdup(env[i])) == NULL) {
+            my_puterr("malloc error.\n");
+            exit(84);
+        }
         i++;
     }
     copy[i] = NULL;
