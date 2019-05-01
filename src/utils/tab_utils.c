@@ -45,14 +45,14 @@ void destroy_tab(char **wordtab)
 
 char **tabdup(char **env)
 {
-    char **copy = malloc(sizeof(char *) * (get_tab_len(env) + 1));
+    char **copy = xmalloc(sizeof(char *) * (get_tab_len(env) + 1));
     int i = 0;
 
     if (copy == NULL)
-        my_puterr("malloc error.\n");
+        my_puterr("xmalloc error.\n");
     while (env[i] != NULL) {
         if ((copy[i] = strdup(env[i])) == NULL)
-            my_puterr("malloc error.\n");
+            my_puterr("xmalloc error.\n");
         i++;
     }
     copy[i] = NULL;

@@ -53,7 +53,7 @@ char *get_word(char *str, int *j)
     char *word;
 
     skip_spaces(str, j);
-    word = malloc(sizeof(char) * (get_word_len(str, j) + 1));
+    word = xmalloc(sizeof(char) * (get_word_len(str, j) + 1));
     if (word == NULL)
         return (NULL);
     while (check_ch(str[*j]) == 1) {
@@ -68,7 +68,7 @@ char *get_word(char *str, int *j)
 char **str_to_wordtab(char *str)
 {
     int nb_word = get_nb_word(str);
-    char **wordtab = malloc(sizeof(char *) * (nb_word + 1));
+    char **wordtab = xmalloc(sizeof(char *) * (nb_word + 1));
     int i = 0;
     int j = 0;
 

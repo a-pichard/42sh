@@ -8,6 +8,11 @@
 #ifndef SH_H_
 #define SH_H_
 
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 void my_putchar(char c);
 void my_putstr(char const *str);
 void my_puterr(char const *str);
@@ -15,5 +20,6 @@ int get_tab_len(char **tab);
 void print_tab(char **wordtab);
 void destroy_tab(char **wordtab);
 char **tabdup(char **env);
+void *xxmalloc(int);
 
 #endif
