@@ -8,7 +8,7 @@
 #include "sh.h"
 #include "vec.h"
 
-int my_exit(vec_t *params)
+int my_exit(vec_t *params, shell_t *shell)
 {
 
 }
