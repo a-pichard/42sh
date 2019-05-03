@@ -8,7 +8,6 @@
 #include "sh.h"
 #include "vec.h"
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 int my_exit(vec_t *params, shell_t *shell)

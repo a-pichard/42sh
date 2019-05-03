@@ -57,7 +57,7 @@ static int do_setenv(vec_t *info)
         return (setenv((char *)info->content[1], "", 1));
     if (info->element == 3)
         return (setenv((char *)info->content[1], (char *)info->content[2], 1));
-    
+    return (1);
 }
 
 int my_setenv(vec_t *info, shell_t *shell)
