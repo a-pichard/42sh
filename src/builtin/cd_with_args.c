@@ -35,7 +35,7 @@ static int go_back(shell_t *shell)
 
     if (shell->prev_dir == NULL) {
         my_puterr(": No such file or directory.\n");
-        free (temp);
+        free(temp);
         return (1);
     } else {
         chdir(shell->prev_dir);

@@ -8,6 +8,7 @@
 #include "sh.h"
 #include "vec.h"
 #include <string.h>
+#include <stdio.h>
 
 int pars_env(char *str)
 {
@@ -28,7 +29,7 @@ int pars_env(char *str)
 char *value_env(char *str)
 {
     extern char **environ;
-    char *dest = strcpy(xmalloc(strlen(environ[pars_env(str)])), str);
+    char *dest = strdup(environ[pars_env(str)]);
 
     for (int i = 0; str[i]; i += 1)
         dest++;

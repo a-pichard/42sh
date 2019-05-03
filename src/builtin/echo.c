@@ -20,11 +20,9 @@ int char_instr(char *str, char c)
 
 int value_echo(char *str)
 {
-    char *mem = xmalloc(strlen(str));
+    char *mem = strdup(str);
 
-    mem = strcpy(mem, str);
-    for (int i = 0; mem[i] != '$'; i += 1)
-        mem++;
+    for (; *mem != '$'; mem++);
     mem++;
     if (!strcmp(mem, "?") || !strcmp(mem, "status"))
         return (0);
@@ -43,32 +41,33 @@ int value_echo(char *str)
 
 void print_value(char *str, shell_t *shell)
 {
-    for (int i = 0; str[i] != '$'; i += 1) {
-        my_putchar(str[i]);
-        str++;
-    }
+    for (; *str && *str != '$'; str++)
+        my_putchar(*str);
+    if (*str != '$')
+        return;
     str++;
-    if (!strcmp(str, "?") || !strcmp(str, "status")) {
+    if (*str && (!strcmp(str, "?") || !strcmp(str, "status"))) {
         my_putnbr(shell->status);
         return;
     }
-    if (pars_env(str) != -1) {
+    if (*str && pars_env(str) != -1) {
         my_putstr(value_env(str));
         return;
     }
-    for (int i = 0; str[i]; i += 1)
+    for (int i = 0; *str && str[i]; i += 1)
         str[i] -= 32;
-    if (pars_env(str) != -1) {
+    if (*str && pars_env(str) != -1) {
         my_putstr(value_env(str));
         return;
     }
-    my_putstr(str);
+    my_putchar('$');
 }
 
 int my_echo(vec_t *params, shell_t *shell)
 {
     int e;
     int status = 0;
+
     e = (params->element >= 2 && !strcmp((char *)params->content[1], "-n"))?1:0;
     for (int i = 1 + e; (int) params->element > i && !status; i += 1) {
         if (char_instr((char *)params->content[i], '$'))
@@ -84,6 +83,6 @@ int my_echo(vec_t *params, shell_t *shell)
         print_value((char *)params->content[i], shell);
         (i + 1 < (int) params->element) ? write(1, " ", 1) : 0;
     }
-    (e && !status) ? write(1, "\n", 1) : 0;
+    (!e && !status) ? write(1, "\n", 1) : 0;
     return (shell->status = status);
 }
