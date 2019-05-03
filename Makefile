@@ -40,11 +40,14 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/builtin/exit.c	\
 		$(SRC_DIR)/builtin/setenv.c	\
 		$(SRC_DIR)/builtin/unsetenv.c	\
-		$(SRC_DIR)/command.c	\
+		$(SRC_DIR)/command.c
 
-debug:			CFLAGS += -g
+all:	$(OBJ_DIR) $(NAME)
 
-all:	$(OBJ_DIR) $(NAME) lol
+debug: val $(OBJ_DIR) $(NAME)
+
+val:
+        $(eval CFLAGS	+=	-g)
 
 lol:
 	@printf "****************************************\n"

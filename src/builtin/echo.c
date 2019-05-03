@@ -69,7 +69,6 @@ int my_echo(vec_t *params, shell_t *shell)
 {
     int e;
     int status = 0;
-
     e = (params->element >= 2 && !strcmp((char *)params->content[1], "-n"))?1:0;
     for (int i = 1 + e; (int) params->element > i && !status; i += 1) {
         if (char_instr((char *)params->content[i], '$'))
