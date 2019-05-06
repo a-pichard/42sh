@@ -44,7 +44,7 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/builtin/unsetenv.c	\
 		$(SRC_DIR)/command.c
 
-all:	$(OBJ_DIR) $(NAME)
+all:	$(OBJ_DIR) $(NAME) lol
 
 debug: val $(OBJ_DIR) $(NAME)
 
