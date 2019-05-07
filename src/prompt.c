@@ -8,7 +8,7 @@
 #include "sh.h"
 #include <unistd.h>
 
-void prompt()
+void prompt(void)
 {
     if (isatty(0) == 1)
         my_putstr("salut bg> ");
