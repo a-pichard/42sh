@@ -27,8 +27,10 @@ int main(void)
     while (42) {
         if (isatty(0) == 1)
             my_putstr("salut bg> ");
-        if ((r = getline(&str, &n, stdin)) < 1)
-            exit (0);
+        if ((r = getline(&str, &n, stdin)) < 1) {
+            my_putstr("exit\n");
+            exit (shell.status);
+        }
         if (strlen(str) < 2)
             continue;
         if (str[r - 1] == '\n') {
