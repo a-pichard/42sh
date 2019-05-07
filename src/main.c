@@ -39,6 +39,7 @@ int main(void)
             str[r - 1] = '\0';
         }
         vec_t *vec = my_str_to_word_tab_plus(str, " \t", separators);
-        command(vec, &shell);
+        int pid = command(vec, &shell);
+        waitpid(pid, &shell.status, 0);
     }
 }
