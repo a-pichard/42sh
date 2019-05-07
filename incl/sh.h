@@ -35,6 +35,8 @@ struct shell_s
 };
 
 typedef struct shell_s shell_t;
+void myshell(shell_t *shell);
+void prompt();
 //command
 int command(vec_t *command, shell_t *shell);
 //builtin

@@ -21,6 +21,8 @@ RED	=	\e[1;35m
 BLUE	=	\e[1;34m
 
 SRC	=	$(SRC_DIR)/main.c	\
+		$(SRC_DIR)/my_shell.c	\
+		$(SRC_DIR)/prompt.c	\
 		$(SRC_DIR)/utils/vec/apply.c	\
 		$(SRC_DIR)/builtin/pars_env.c	\
 		$(SRC_DIR)/utils/vec/create.c	\
