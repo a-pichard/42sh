@@ -27,6 +27,7 @@ int main(void)
 
     init_shell(&shell);
     while (42) {
+        str = NULL;
         if (isatty(0) == 1)
             my_putstr("salut bg> ");
         if ((r = getline(&str, &n, stdin)) < 1) {
@@ -40,6 +41,8 @@ int main(void)
         }
         vec_t *vec = my_str_to_word_tab_plus(str, " \t", separators);
         int pid = command(vec, &shell);
+        free(str);
+        destroy_vec(vec, free);
         waitpid(pid, &shell.status, 0);
     }
 }
