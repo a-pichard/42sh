@@ -32,6 +32,8 @@ static char *exec(char *str, shell_t *shell)
     int pid;
 
     vec = my_str_to_word_tab_plus(str, " \t", separators);
+    if (vec->element == 0)
+        return (NULL);
     free(str);
     str = NULL;
     pid = command(vec, shell);
