@@ -12,7 +12,7 @@
 
 int my_exit(vec_t *params, shell_t *shell)
 {
-    int dest;
+    int dest = -666;
 
     if (params->element == 2)
         dest = my_atoi(params->content[1]);
