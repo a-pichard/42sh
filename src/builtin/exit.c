@@ -19,12 +19,16 @@ int my_exit(vec_t *params, shell_t *shell)
     if (params->element > 2 || dest == -666) {
         my_puterr("exit: Invalid syntax.\n");
         shell->status = 1;
-    } else {
+    } else if (params->element == 2) {
         my_putstr("exit\n");
         if (dest >= 0)
             exit(dest % 256);
         else
             exit(256 + (dest % 256));
+    }
+    if (params->element == 1) {
+        my_putstr("exit\n");
+        exit(0);
     }
     return (0);
 }
