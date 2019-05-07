@@ -27,11 +27,12 @@ int main(void)
 
     init_shell(&shell);
     while (42) {
+        str = NULL;
         if (isatty(0) == 1)
             my_putstr("salut bg> ");
         if ((r = getline(&str, &n, stdin)) < 1) {
             my_putstr("exit\n");
-            exit (shell.status);
+            exit(shell.status);
         }
         if (strlen(str) < 2)
             continue;
@@ -40,5 +41,7 @@ int main(void)
         }
         vec_t *vec = my_str_to_word_tab_plus(str, " \t", separators);
         command(vec, &shell);
+        free(str);
+        destroy_vec(vec, free);
     }
 }
