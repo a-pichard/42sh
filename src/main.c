@@ -21,12 +21,18 @@ int main(void)
     char *separators[] = SEPARATOR;
     size_t n = 0;
     shell_t shell;
+    int r = 0;
 
     init_shell(&shell);
     while (42) {
         if (isatty(0) == 1)
             my_putstr("salut bg> ");
-        int r = getline(&str, &n, stdin);
+        if ((r = getline(&str, &n, stdin)) < 1) {
+            my_putstr("exit\n");
+            exit (shell.status);
+        }
+        if (strlen(str) < 2)
+            continue;
         if (str[r - 1] == '\n') {
             str[r - 1] = '\0';
         }
