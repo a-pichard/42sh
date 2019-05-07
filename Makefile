@@ -44,9 +44,9 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/builtin/unsetenv.c	\
 		$(SRC_DIR)/command.c
 
-all:	$(OBJ_DIR) $(NAME) lol
+all:	$(NAME) lol
 
-debug: val $(OBJ_DIR) $(NAME)
+debug: val $(NAME)
 
 val:
         $(eval CFLAGS	+=	-g)
@@ -61,16 +61,10 @@ lol:
 	@printf "* $(RED)     ╚═╝$(BLUE)╚══════╝    $(ORANGE)╚══════╝$(GREEN)╚═╝  ╚═╝ $(WHITE)*\n"
 	@printf "****************************************\n"
 
-$(OBJ_DIR):
-	@mkdir $(OBJ_DIR)
-	@mkdir $(OBJ_DIR)/utils
-	@mkdir $(OBJ_DIR)/utils/str
-	@mkdir $(OBJ_DIR)/utils/vec
-	@mkdir $(OBJ_DIR)/builtin
-
 OBJ	=	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	@printf "$(RED)[$(BLUE)$<$(RED)]$(WHITE)"
 	@printf "\t->\t"
 	@printf "$(RED)[$(GREEN)$@$(RED)]$(WHITE)\n"
