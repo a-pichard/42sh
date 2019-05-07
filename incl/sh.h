@@ -10,6 +10,7 @@
 #include "vec.h"
 #define SEPARATOR {";", "|", ">>", "<<", ">", "<", NULL}
 
+int my_atoi(char *str);
 void my_putchar(char c);
 void my_putstr(char const *str);
 void my_puterr(char const *str);

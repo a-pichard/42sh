@@ -33,6 +33,7 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/utils/puts.c	\
 		$(SRC_DIR)/utils/tab_utils.c	\
 		$(SRC_DIR)/utils/verif_malloc.c \
+		$(SRC_DIR)/utils/my_atoi.c	\
 		$(SRC_DIR)/utils/index_of.c	\
 		$(SRC_DIR)/utils/str/my_strcat.c	\
 		$(SRC_DIR)/builtin/cd.c	\
