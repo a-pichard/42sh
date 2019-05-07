@@ -18,6 +18,14 @@ int char_instr(char *str, char c)
     return (0);
 }
 
+char *space_to_point(char *str)
+{
+    for (int i = 0; str[i]; i += 1)
+        if (str[i] == ':')
+            str[i] = ' ';
+    return (str);
+}
+
 int value_echo(char *str)
 {
     char *mem = strdup(str);
@@ -57,7 +65,7 @@ void print_value(char *str, shell_t *shell)
     for (int i = 0; *str && str[i]; i += 1)
         str[i] -= 32;
     if (*str && pars_env(str) != -1) {
-        my_putstr(value_env(str));
+        my_putstr(space_to_point(value_env(str)));
         return;
     }
     my_putchar('$');
