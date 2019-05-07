@@ -8,6 +8,8 @@
 #include "sh.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
 void init_shell(shell_t *sh)
 {
