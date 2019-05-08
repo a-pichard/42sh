@@ -10,6 +10,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+static void destroy(vec_t *params, shell_t *shell)
+{
+    destroy_vec(params, free);
+    if (shell->prev_dir != NULL)
+        free(shell->prev_dir);
+}
+
 int my_exit(vec_t *params, shell_t *shell)
 {
     int dest = 0;
@@ -21,14 +28,14 @@ int my_exit(vec_t *params, shell_t *shell)
         shell->status = 1;
     } else if (params->element == 2) {
         my_putstr("exit\n");
-        destroy_vec(params, free);
+        destroy(params, shell);
         if (dest >= 0)
             exit(dest % 256);
         else
             exit(256 + (dest % 256));
     }
     if (params->element == 1) {
-        destroy_vec(params, free);
+        destroy(params, shell);
         my_putstr("exit\n");
         exit(0);
     }
