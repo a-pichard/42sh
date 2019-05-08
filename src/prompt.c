@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static int get_pathlen(char *path)
 {
@@ -25,18 +26,43 @@ static int get_pathlen(char *path)
     return (i);
 }
 
-static int get_index(char *path)
+static char *myrealloc(char *old, char c)
 {
-    int pathlen = get_pathlen(path);
-    int len = strlen(path);
+    char *str = xmalloc(sizeof(char) * 2);
 
-    return (len - pathlen);
+    free(old);
+    str[0] = c;
+    str[1] = '\0';
+    return (str);
+}
+
+static char *check_home(char *path, char *fn)
+{
+    char *home = getenv("HOME");
+    int ret;
+
+    if (home != NULL) {
+        ret = strcmp(path, home);
+        if (ret == 0) {
+            free(path);
+            fn = myrealloc(fn, '~');
+        } else if (ret < 0) {
+            free(fn);
+            fn = path;
+        } else
+            free(path);
+    } else {
+        free(path);
+    }
+    if (strlen(fn) == 0)
+        fn = myrealloc(fn, '/');
+    return (fn);
 }
 
 static char *get_filename(char *path)
 {
-    int index = get_index(path);
     int len = get_pathlen(path);
+    int index = (strlen(path) - len);
     char *filename = malloc(sizeof(char) * (len + 1));
     int i = 0;
 
@@ -49,9 +75,8 @@ static char *get_filename(char *path)
         i++;
         index++;
     }
-    free(path);
     filename[i] = '\0';
-    return (filename);
+    return (check_home(path, filename));
 }
 
 void prompt(void)
