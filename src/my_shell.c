@@ -29,7 +29,6 @@ static void exec(char *str, shell_t *shell)
 {
     vec_t *vec;
     char *separators[] = SEPARATOR;
-    int pid;
 
     vec = my_str_to_word_tab_plus(str, " \t\n", separators);
     if (vec->element == 0) {
@@ -39,10 +38,9 @@ static void exec(char *str, shell_t *shell)
     }
     free(str);
     str = NULL;
-    pid = command(vec, shell);
+    command(vec, shell);
     destroy_vec(vec, free);
-    waitpid(pid, &shell->status, 0);
-    return;
+    return (NULL);
 }
 
 void myshell(shell_t *shell)
