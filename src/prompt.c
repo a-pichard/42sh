@@ -11,8 +11,9 @@
 void prompt(void)
 {
     if (isatty(0) == 1) {
+        my_putchar('[');
         my_putstr(getlogin());
         my_putstr("@localhost");
-        my_putstr("> ");
+        my_putstr("]$ ");
     }
 }
