@@ -48,6 +48,7 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/signal.c	\
 		$(SRC_DIR)/command.c	\
 		$(SRC_DIR)/redirection.c	\
+		$(SRC_DIR)/error.c	\
 
 all:	$(NAME) lol
 

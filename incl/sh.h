@@ -22,7 +22,7 @@ void *xmalloc(int);
 int index_of(char c, char *tab);
 int index_of_str(char *str, char **tab);
 vec_t *my_str_to_word_tab_plus(char *str, char *separators,
-    char **separator_and_word);
+char **separator_and_word);
 void my_putnbr(int n);
 char *my_strcat(char *src, char *src_bis);
 
@@ -36,7 +36,7 @@ struct shell_s
 
 typedef struct shell_s shell_t;
 void myshell(shell_t *shell);
-void prompt();
+void prompt(void);
 //command
 int command(vec_t *command, shell_t *shell);
 //builtin
@@ -47,6 +47,7 @@ int my_env(vec_t *params, shell_t *shell);
 int my_setenv(vec_t *params, shell_t *shell);
 int my_unsetenv(vec_t *params, shell_t *shell);
 int my_exit(vec_t *params, shell_t *shell);
+void my_exiterr(char *str, char *err, int n);
 int my_echo(vec_t *params, shell_t *shell);
 char *value_env(char *str);
 int pars_env(char *str);

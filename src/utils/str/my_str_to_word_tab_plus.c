@@ -34,23 +34,23 @@ static int is_word_separator(char *str, char **word_separators)
 }
 
 static char *get_word_plus(char *str, char *separators,
-    char **word_separators)
+char **word_separators)
 {
     int i = 0;
     char *word = NULL;
 
     if (is_word_separator(str, word_separators) != -1) {
         return (strdup(word_separators[is_word_separator(str,
-            word_separators)]));
+        word_separators)]));
     }
     while (str[i] != '\0' && index_of(str[i], separators) == -1 &&
-            is_word_separator(str + i, word_separators) == -1) {
+    is_word_separator(str + i, word_separators) == -1) {
         i++;
     }
     word = malloc(sizeof(char) * (i + 1));
     i = 0;
     while (str[i] != '\0' && index_of(str[i], separators) == -1 &&
-            is_word_separator(str + i, word_separators) == -1) {
+    is_word_separator(str + i, word_separators) == -1) {
         word[i] = str[i];
         i++;
     }
@@ -59,7 +59,7 @@ static char *get_word_plus(char *str, char *separators,
 }
 
 vec_t *my_str_to_word_tab_plus(char *str, char *separators,
-    char **separator_and_word)
+char **separator_and_word)
 {
     vec_t *v = create_vec();
     char *word = NULL;
