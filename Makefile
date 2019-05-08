@@ -55,7 +55,7 @@ all:	$(NAME) lol
 debug: val $(NAME)
 
 val:
-        $(eval CFLAGS	+=	-g)
+	$(eval CFLAGS	+=	-g)
 
 lol:
 	@printf "****************************************\n"

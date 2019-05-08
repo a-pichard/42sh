@@ -67,7 +67,7 @@ int do_command(vec_t *command, shell_t *shell)
     } else if (!pid) {
         my_bin(command->content[0], command);
         execvp(command->content[0], (char * const *)command->content);
-        my_exiterr(command->content[0], ": Command not found\n", 1);
+        my_exiterr(command->content[0], ": Command not found.\n", 1);
     }
     waitpid(pid, &s, 0);
     (WIFSIGNALED(s))?print_err(s, shell):(shell->status = WEXITSTATUS(s));
