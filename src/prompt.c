@@ -57,12 +57,10 @@ static char *get_filename(char *path)
 void prompt(void)
 {
     char *current_dir;
-    char *login;
 
     if (isatty(0) == 1) {
-        login = getlogin();
         my_putchar('[');
-        my_putstr(login);
+        my_putstr(getlogin());
         my_putstr("@localhost ");
         current_dir = get_filename(getcwd(NULL, 0));
         my_putstr(current_dir);
