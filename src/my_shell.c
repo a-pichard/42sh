@@ -25,14 +25,14 @@ static void exit_shell(shell_t *shell, char *cmd)
     exit(status);
 }
 
-static char *exec(char *str, shell_t *shell)
+static void exec(char *str, shell_t *shell)
 {
     vec_t *vec;
     char *separators[] = SEPARATOR;
 
-    vec = my_str_to_word_tab_plus(str, " \t", separators);
+    vec = my_str_to_word_tab_plus(str, " \t\n", separators);
     if (vec->element == 0)
-        return (NULL);
+        return;
     free(str);
     str = NULL;
     command(vec, shell);
@@ -50,14 +50,7 @@ void myshell(shell_t *shell)
         prompt();
         if ((r = getline(&str, &n, stdin)) < 1)
             exit_shell(shell, str);
-        if (strlen(str) < 2)
-            continue;
-        if (str[r - 1] == '\n') {
-            str[r - 1] = '\0';
-        } else {
-            free(str);
-            continue;
-        }
-        str = exec(str, shell);
+        exec(str, shell);
+        str = NULL;
     }
 }

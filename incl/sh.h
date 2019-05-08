@@ -8,7 +8,7 @@
 #ifndef SH_H_
 #define SH_H_
 #include "vec.h"
-#define SEPARATOR {";", "|", ">>", "<<", ">", "<", NULL}
+#define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
 
 int my_atoi(char *str);
 void my_putchar(char c);
