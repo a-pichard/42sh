@@ -31,7 +31,7 @@ static char *exec(char *str, shell_t *shell)
     char *separators[] = SEPARATOR;
     int pid;
 
-    vec = my_str_to_word_tab_plus(str, " \t", separators);
+    vec = my_str_to_word_tab_plus(str, " \t\n", separators);
     if (vec->element == 0)
         return (NULL);
     free(str);
@@ -52,14 +52,6 @@ void myshell(shell_t *shell)
         prompt();
         if ((r = getline(&str, &n, stdin)) < 1)
             exit_shell(shell, str);
-        if (strlen(str) < 2)
-            continue;
-        if (str[r - 1] == '\n') {
-            str[r - 1] = '\0';
-        } else {
-            free(str);
-            continue;
-        }
         str = exec(str, shell);
     }
 }
