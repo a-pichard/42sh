@@ -40,7 +40,6 @@ static void exec(char *str, shell_t *shell)
     str = NULL;
     command(vec, shell);
     destroy_vec(vec, free);
-    return (NULL);
 }
 
 void myshell(shell_t *shell)
