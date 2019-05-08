@@ -6,6 +6,7 @@
 */
 
 #include "sh.h"
+#include <signal.h>
 
 int main(void)
 {
@@ -13,6 +14,7 @@ int main(void)
 
     shell.status = 0;
     shell.prev_dir = NULL;
+    signal(SIGINT, handle_sigint);
     myshell(&shell);
     return (0);
 }

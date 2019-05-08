@@ -50,4 +50,5 @@ int my_exit(vec_t *params, shell_t *shell);
 int my_echo(vec_t *params, shell_t *shell);
 char *value_env(char *str);
 int pars_env(char *str);
+void handle_sigint(int sig);
 #endif

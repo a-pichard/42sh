@@ -45,6 +45,7 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/builtin/exit.c	\
 		$(SRC_DIR)/builtin/setenv.c	\
 		$(SRC_DIR)/builtin/unsetenv.c	\
+		$(SRC_DIR)/signal.c	\
 		$(SRC_DIR)/command.c
 
 all:	$(NAME) lol
