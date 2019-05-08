@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 
 int is_dir(char *file)
 {
