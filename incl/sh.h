@@ -44,7 +44,7 @@ void myshell(shell_t *shell);
 void prompt(void);
 //command
 int command(vec_t *command, shell_t *shell, int files[2]);
-void redirection(vec_t *command, shell_t *shell);
+vec_t *redirection(vec_t *commands, shell_t *shell);
 //builtin
 int my_cd(vec_t *params, shell_t *shell);
 int cd_with_args(vec_t *params, shell_t *shell);

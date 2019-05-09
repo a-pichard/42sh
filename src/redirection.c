@@ -22,7 +22,33 @@ bool is_command_valid(cmd_t *command)
     return true;
 }
 
-void redirection(vec_t *commands, shell_t *shell)
+static void add_pid(vec_t *vec, int pid)
+{
+    int *new = malloc(sizeof(int));
+
+    *new = pid;
+    push(vec, new);
+}
+
+static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
+{
+    int tmp_files[2];
+    char *tmp = get(cmd->sep, i);
+
+    if (tmp == NULL) {
+        return true;
+    } else if (!strcmp(tmp, "|")) {
+        pipe(tmp_files);
+        files[1] = tmp_files[1];
+        *for_next = tmp_files[0];
+        return true;
+    } else {
+        return true;
+    }
+    return false;
+}
+
+vec_t *redirection(vec_t *commands, shell_t *shell)
 {
     cmd_t *cmd = parser(commands);
     vec_t *pid = create_vec();
@@ -31,34 +57,18 @@ void redirection(vec_t *commands, shell_t *shell)
     int return_pid;
 
     if (!is_command_valid(cmd))
-        return;
+        return NULL;
     for (int i = 0; i < (cmd->nb_cmd - 1); i++) {
-        int tmp_files[2];
         if (files[0] != 0)
             close(files[0]);
         if (files[1] != 1)
             close(files[1]);
         files[0] = for_next;
         files[1] = 1;
-        char *tmp = get(cmd->sep, i);
-        if (tmp == NULL) {
+        if (update_file(cmd, i, files, &for_next)) {
             return_pid = command(cmd->cmd[i], shell, files);
-        } else if (!strcmp(tmp, "|")) {
-            pipe(tmp_files);
-            files[1] = tmp_files[1];
-            for_next = tmp_files[0];
-            return_pid = command(cmd->cmd[i], shell, files);
-        } else {
-            return_pid = command(cmd->cmd[i], shell, files);
+            add_pid(pid, return_pid);
         }
-        int *new = malloc(sizeof(int));
-        *new = return_pid;
-        push(pid, new);
     }
-    for (int i = 0; i < pid->element; i++) {
-        int s = 0;
-        waitpid(*(int *)(pid->content[i]), &s, 0);
-        (WIFSIGNALED(s))?print_err(s, shell):(shell->status = WEXITSTATUS(s));
-    }
-    // return (pid);
+    return (pid);
 }

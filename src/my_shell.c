@@ -39,7 +39,14 @@ static void exec(char *str, shell_t *shell)
     free(str);
     str = NULL;
     // command(vec, shell);
-    redirection(vec, shell);
+    vec_t *pid = redirection(vec, shell);
+    if (pid != NULL)
+        for (int i = 0; i < pid->element; i++) {
+            int s = 0;
+            waitpid(*(int *)(pid->content[i]), &s, 0);
+            (WIFSIGNALED(s))?print_err(s, shell):(shell->status = WEXITSTATUS(s));
+        }
+    
     destroy_vec(vec, free);
 }
 

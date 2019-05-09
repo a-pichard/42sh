@@ -69,9 +69,8 @@ int command(vec_t *command, shell_t *shell, int files[2])
     int (*function[])(vec_t *params, shell_t *status) = {my_env, my_setenv,
         my_unsetenv, my_exit, my_cd, my_echo, NULL};
     int n = index_of_str((char *)(command->content[0]), builtin);
-    int pid = 0;
+    int pid = fork();
 
-    pid = fork();
     if (pid == -1) {
         my_puterr("fork error\n");
         exit(84);
