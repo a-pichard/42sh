@@ -30,9 +30,6 @@ void redirection(vec_t *commands, shell_t *shell)
     int files[2] = {0, 1};
     int return_pid;
 
-    print_cmd(cmd);
-    printf("salut je suis la\n");
-
     if (!is_command_valid(cmd))
         return;
     for (int i = 0; i < (cmd->nb_cmd - 1); i++) {

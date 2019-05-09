@@ -61,5 +61,6 @@ cmd_t *parser(vec_t *splited_cmd);
 void handle_sigint(int sig);
 int is_redirs(char *str);
 int is_redir(char *str);
+vec_t *parser_sep(char *cmd);
 
 #endif
