@@ -72,9 +72,7 @@ int do_command(vec_t *command, shell_t *shell, int files[2])
         execvp(command->content[0], (char * const *)command->content);
         my_exiterr(command->content[0], ": Command not found\n", 1);
     }
-    waitpid(pid, &s, 0);
-    (WIFSIGNALED(s))?print_err(s, shell):(shell->status = WEXITSTATUS(s));
-    return (0);
+    return (pid);
 }
 
 int command(vec_t *command, shell_t *shell, int files[2])
@@ -87,7 +85,7 @@ int command(vec_t *command, shell_t *shell, int files[2])
     if (n != -1) {
         (function[n])(command, shell);
     } else {
-        do_command(command, shell, files);
+        return (do_command(command, shell, files));
     }
     return (0);
 }
