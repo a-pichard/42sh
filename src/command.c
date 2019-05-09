@@ -70,7 +70,7 @@ int command(vec_t *command, shell_t *shell, int files[2])
     int n = index_of_str((char *)(command->content[0]), builtin);
     int pid = 0;
 
-    if (n == 3)
+    if (n == 1 || n == 2 || n == 3 || n == 4)
         (function[n])(command, shell);
     pid = fork();
     if (pid == -1) {
