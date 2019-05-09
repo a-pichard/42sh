@@ -60,4 +60,5 @@ void redirection(vec_t *commands, shell_t *shell)
         waitpid(*(int *)(pid->content[i]), &s, 0);
         (WIFSIGNALED(s))?print_err(s, shell):(shell->status = WEXITSTATUS(s));
     }
+    // return (pid);
 }
