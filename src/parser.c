@@ -60,15 +60,13 @@ static void mem_alloc_cmds(cmd_t *cmds)
     }
 }
 
-cmd_t *parser(char *line)
+cmd_t *parser(vec_t *splited_cmd)
 {
     cmd_t *cmds = xmalloc(sizeof(cmd_t));
     char *separators[] = SEPARATOR;
-    vec_t *splited_cmd = my_str_to_word_tab_plus(line, " \t\n", separators);
 
     cmds->nb_cmd = get_nb_cmd(splited_cmd) + 2;
     mem_alloc_cmds(cmds);
     fill_my_struct(cmds, splited_cmd);
-    destroy_vec(splited_cmd, free);
     return (cmds);
 }

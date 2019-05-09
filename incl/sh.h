@@ -43,7 +43,8 @@ typedef struct shell_s shell_t;
 void myshell(shell_t *shell);
 void prompt(void);
 //command
-int command(vec_t *command, shell_t *shell);
+int command(vec_t *command, shell_t *shell, int files[2]);
+void redirection(vec_t *command, shell_t *shell);
 //builtin
 int my_cd(vec_t *params, shell_t *shell);
 int cd_with_args(vec_t *params, shell_t *shell);
@@ -56,6 +57,7 @@ void my_exiterr(char *str, char *err, int n);
 int my_echo(vec_t *params, shell_t *shell);
 char *value_env(char *str);
 int pars_env(char *str);
+cmd_t *parser(vec_t *splited_cmd);
 void handle_sigint(int sig);
 int is_redirs(char *str);
 int is_redir(char *str);

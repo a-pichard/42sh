@@ -38,7 +38,8 @@ static void exec(char *str, shell_t *shell)
     }
     free(str);
     str = NULL;
-    command(vec, shell);
+    // command(vec, shell);
+    redirection(vec, shell);
     destroy_vec(vec, free);
 }
 

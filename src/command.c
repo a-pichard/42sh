@@ -7,6 +7,7 @@
 
 #include "vec.h"
 #include "sh.h"
+#include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -55,7 +56,7 @@ void print_err(int s, shell_t *shell)
     shell->status = WTERMSIG(s) + 128;
 }
 
-int do_command(vec_t *command, shell_t *shell)
+int do_command(vec_t *command, shell_t *shell, int files[2])
 {
     int pid = 0;
     int s;
@@ -65,6 +66,8 @@ int do_command(vec_t *command, shell_t *shell)
         my_puterr("fork error\n");
         return (-1);
     } else if (!pid) {
+        dup2(files[0], 0);
+        dup2(files[1], 1);
         my_bin(command->content[0], command);
         execvp(command->content[0], (char * const *)command->content);
         my_exiterr(command->content[0], ": Command not found\n", 1);
@@ -74,7 +77,7 @@ int do_command(vec_t *command, shell_t *shell)
     return (0);
 }
 
-int command(vec_t *command, shell_t *shell)
+int command(vec_t *command, shell_t *shell, int files[2])
 {
     char *builtin[] = {"env", "setenv", "unsetenv", "exit", "cd", "echo", NULL};
     int (*function[])(vec_t *params, shell_t *status) = {my_env, my_setenv,
@@ -84,7 +87,7 @@ int command(vec_t *command, shell_t *shell)
     if (n != -1) {
         (function[n])(command, shell);
     } else {
-        do_command(command, shell);
+        do_command(command, shell, files);
     }
     return (0);
 }
