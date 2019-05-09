@@ -72,7 +72,6 @@ static void mem_alloc_cmds(cmd_t *cmds)
 cmd_t *parser(vec_t *splited_cmd)
 {
     cmd_t *cmds = xmalloc(sizeof(cmd_t));
-    char *separators[] = SEPARATOR;
 
     cmds->nb_cmd = get_nb_cmd(splited_cmd) + 2;
     mem_alloc_cmds(cmds);

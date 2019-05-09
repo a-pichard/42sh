@@ -55,7 +55,7 @@ void redirection(vec_t *commands, shell_t *shell)
         *new = return_pid;
         push(pid, new);
     }
-    for (int i = 0; i < pid->element; i++) {
+    for (int i = 0; i < (int)pid->element; i++) {
         int s = 0;
         waitpid(*(int *)(pid->content[i]), &s, 0);
         (WIFSIGNALED(s))?print_err(s, shell):(shell->status = WEXITSTATUS(s));

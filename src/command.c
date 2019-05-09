@@ -56,7 +56,7 @@ void print_err(int s, shell_t *shell)
     shell->status = WTERMSIG(s) + 128;
 }
 
-int do_command(vec_t *command, shell_t *shell)
+void do_command(vec_t *command, shell_t *shell)
 {
     my_bin(command->content[0], command);
     execvp(command->content[0], (char * const *)command->content);
