@@ -26,6 +26,11 @@ char **separator_and_word);
 void my_putnbr(int n);
 char *my_strcat(char *src, char *src_bis);
 
+typedef struct {
+    int nb_cmd;
+    vec_t **cmd;
+    vec_t *sep;
+} cmd_t;
 
 
 struct shell_s
@@ -52,4 +57,7 @@ int my_echo(vec_t *params, shell_t *shell);
 char *value_env(char *str);
 int pars_env(char *str);
 void handle_sigint(int sig);
+int is_redirs(char *str);
+int is_redir(char *str);
+
 #endif
