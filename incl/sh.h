@@ -9,6 +9,8 @@
 #define SH_H_
 #include "vec.h"
 #define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
+#define FUNCTION_PTR {my_env, my_setenv, my_unsetenv,\
+    my_exit, my_cd, my_echo, NULL};
 
 int my_atoi(char *str);
 void my_putchar(char c);
@@ -26,6 +28,11 @@ char **separator_and_word);
 void my_putnbr(int n);
 char *my_strcat(char *src, char *src_bis);
 
+typedef struct {
+    int nb_cmd;
+    vec_t **cmd;
+    vec_t *sep;
+} cmd_t;
 
 
 struct shell_s
@@ -35,10 +42,21 @@ struct shell_s
 };
 
 typedef struct shell_s shell_t;
+//shell
 void myshell(shell_t *shell);
 void prompt(void);
+
 //command
-int command(vec_t *command, shell_t *shell);
+int command(vec_t *command, shell_t *shell, int files[2]);
+void redirection(vec_t *command, shell_t *shell);
+cmd_t *parser(vec_t *splited_cmd);
+void handle_sigint(int sig);
+int is_redirs(char *str);
+int is_redir(char *str);
+vec_t *parser_sep(char *cmd);
+void print_err(int s, shell_t *shell);
+void my_exiterr(char *str, char *err, int n);
+
 //builtin
 int my_cd(vec_t *params, shell_t *shell);
 int cd_with_args(vec_t *params, shell_t *shell);
@@ -47,9 +65,9 @@ int my_env(vec_t *params, shell_t *shell);
 int my_setenv(vec_t *params, shell_t *shell);
 int my_unsetenv(vec_t *params, shell_t *shell);
 int my_exit(vec_t *params, shell_t *shell);
-void my_exiterr(char *str, char *err, int n);
 int my_echo(vec_t *params, shell_t *shell);
 char *value_env(char *str);
 int pars_env(char *str);
-void handle_sigint(int sig);
+
+
 #endif

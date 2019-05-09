@@ -7,6 +7,7 @@
 
 #include "vec.h"
 #include "sh.h"
+#include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -55,36 +56,34 @@ void print_err(int s, shell_t *shell)
     shell->status = WTERMSIG(s) + 128;
 }
 
-int do_command(vec_t *command, shell_t *shell)
+void do_command(vec_t *command, shell_t *shell)
 {
-    int pid = 0;
-    int s;
+    my_bin(command->content[0], command);
+    execvp(command->content[0], (char * const *)command->content);
+    my_exiterr(command->content[0], ": Command not found.\n", 1);
+}
 
+int command(vec_t *command, shell_t *shell, int files[2])
+{
+    char *builtin[] = {"env", "setenv", "unsetenv", "exit", "cd", "echo", NULL};
+    int (*function[])(vec_t *params, shell_t *status) = FUNCTION_PTR;
+    int n = index_of_str((char *)(command->content[0]), builtin);
+    int pid = 0;
+
+    if (n == 3)
+        (function[n])(command, shell);
     pid = fork();
     if (pid == -1) {
         my_puterr("fork error\n");
-        return (-1);
+        exit(84);
     } else if (!pid) {
-        my_bin(command->content[0], command);
-        execvp(command->content[0], (char * const *)command->content);
-        my_exiterr(command->content[0], ": Command not found.\n", 1);
+        dup2(files[0], 0);
+        dup2(files[1], 1);
+        if (n != -1) {
+            (function[n])(command, shell);
+            exit(0);
+        } else
+            do_command(command, shell);
     }
-    waitpid(pid, &s, 0);
-    (WIFSIGNALED(s))?print_err(s, shell):(shell->status = WEXITSTATUS(s));
-    return (0);
-}
-
-int command(vec_t *command, shell_t *shell)
-{
-    char *builtin[] = {"env", "setenv", "unsetenv", "exit", "cd", "echo", NULL};
-    int (*function[])(vec_t *params, shell_t *status) = {my_env, my_setenv,
-        my_unsetenv, my_exit, my_cd, my_echo, NULL};
-    int n = index_of_str((char *)(command->content[0]), builtin);
-
-    if (n != -1) {
-        (function[n])(command, shell);
-    } else {
-        do_command(command, shell);
-    }
-    return (0);
+    return (pid);
 }
