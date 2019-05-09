@@ -66,11 +66,12 @@ int do_command(vec_t *command, shell_t *shell)
 int command(vec_t *command, shell_t *shell, int files[2])
 {
     char *builtin[] = {"env", "setenv", "unsetenv", "exit", "cd", "echo", NULL};
-    int (*function[])(vec_t *params, shell_t *status) = {my_env, my_setenv,
-        my_unsetenv, my_exit, my_cd, my_echo, NULL};
+    int (*function[])(vec_t *params, shell_t *status) = FUNCTION_PTR;
     int n = index_of_str((char *)(command->content[0]), builtin);
     int pid = 0;
 
+    if (n == 3)
+        (function[n])(command, shell);
     pid = fork();
     if (pid == -1) {
         my_puterr("fork error\n");
@@ -81,9 +82,8 @@ int command(vec_t *command, shell_t *shell, int files[2])
         if (n != -1) {
             (function[n])(command, shell);
             exit(0);
-        } else {
+        } else
             do_command(command, shell);
-        }
     }
     return (pid);
 }

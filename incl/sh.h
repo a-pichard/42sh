@@ -9,6 +9,8 @@
 #define SH_H_
 #include "vec.h"
 #define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
+#define FUNCTION_PTR {my_env, my_setenv, my_unsetenv,\
+    my_exit, my_cd, my_echo, NULL};
 
 int my_atoi(char *str);
 void my_putchar(char c);
