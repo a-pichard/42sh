@@ -51,7 +51,8 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/exec/error.c	\
 		$(SRC_DIR)/parser/is_redir.c	\
 		$(SRC_DIR)/parser/parser.c	\
-		$(SRC_DIR)/parser/parser_sep.c
+		$(SRC_DIR)/parser/parser_sep.c	\
+		$(SRC_DIR)/parser/getglob.c
 
 all:	$(NAME) lol
 
