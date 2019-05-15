@@ -60,6 +60,7 @@ vec_t *parser_sep(char *cmd);
 void print_err(int s, shell_t *shell);
 void my_exiterr(char *str, char *err, int n);
 bool getglob(vec_t **cmd);
+void exec(char *str, shell_t *shell);
 
 //builtin
 int my_cd(vec_t *params, shell_t *shell);

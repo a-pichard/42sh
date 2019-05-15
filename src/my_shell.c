@@ -25,7 +25,7 @@ static void exit_shell(shell_t *shell, char *cmd)
     exit(status);
 }
 
-static void exec(char *str, shell_t *shell)
+void exec(char *str, shell_t *shell)
 {
     vec_t *vec;
     char *separators[] = SEPARATOR;
@@ -59,7 +59,7 @@ void myshell(shell_t *shell)
         prompt();
         if ((r = getline(&str, &n, stdin)) < 1)
             exit_shell(shell, str);
-        exec(str, shell);
+        exec_separator(str, shell);
         str = NULL;
     }
 }
