@@ -35,7 +35,7 @@ static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
     int tmp_files[2];
     void *tmp = get(cmd->sep, i);
 
-    if (tmp == NULL && !strcmp(tmp, "|")) {
+    if (tmp != NULL && !strcmp(tmp, "|")) {
         pipe(tmp_files);
         files[1] = tmp_files[1];
         *for_next = tmp_files[0];
