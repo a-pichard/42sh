@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 bool is_command_valid(cmd_t *command)
 {
@@ -28,6 +29,30 @@ static void add_pid(vec_t *vec, int pid)
 
     *new = pid;
     push(vec, new);
+}
+
+void get_user_stdin_input(int fd[2], char *arg)
+{
+    char *str = NULL;
+    size_t n = 0;
+
+    my_putstr("? ");
+    while (42) {
+        if (getline(&str, &n, stdin) < 1)
+            return;
+        my_putstr("? ");
+        if (write(fd[1], str, strlen(str)) == -1)
+            perror("write");
+    }
+}
+
+void redirect_stdin_double(void *tmp, int files[2])
+{
+    if (pipe(files) == -1)
+        perror("pipe");
+    get_user_stdin_input(files, tmp);
+    close(files[1]);
+    dup2(files[0], 0);
 }
 
 static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
@@ -43,9 +68,11 @@ static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
         if (!strcmp(tmp, ">") || !strcmp(tmp, ">>"))
             files[1] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, ">>")?
             O_WRONLY | O_CREAT | O_APPEND:O_WRONLY | O_TRUNC | O_CREAT, 0644);
-        else
+        else {
             files[0] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, "<<")?
             O_RDONLY : O_RDONLY, 0644);
+            (!strcmp(tmp, "<<")) ? redirect_stdin_double(tmp, files) : 0;
+        }
         tmp = cmd->cmd[i + 1];
         cmd->cmd[i + 1] = cmd->cmd[i];
         cmd->cmd[i] = tmp;
