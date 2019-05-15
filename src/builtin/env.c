@@ -13,6 +13,7 @@
 int my_env(vec_t *info, shell_t *shell)
 {
     extern char **environ;
+    (void) info;
 
     for (int i = 0; environ[i] != NULL; i++) {
         write(1, environ[i], strlen(environ[i]));
