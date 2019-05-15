@@ -11,7 +11,7 @@
 #include <stdbool.h>
 #define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
 #define FUNCTION_PTR {my_env, my_setenv, my_unsetenv, \
-    my_exit, my_cd, my_echo, NULL};
+            my_exit, my_cd, my_echo, my_alias, NULL};
 
 int my_atoi(char *str);
 void my_putchar(char c);
@@ -35,11 +35,16 @@ typedef struct {
     vec_t *sep;
 } cmd_t;
 
+typedef struct {
+    char *alias;
+    char *cmd;
+} alias_t;
 
 struct shell_s
 {
     int status;
     char *prev_dir;
+    vec_t *alias;
 };
 
 typedef struct shell_s shell_t;
@@ -60,6 +65,7 @@ vec_t *parser_sep(char *cmd);
 void print_err(int s, shell_t *shell);
 void my_exiterr(char *str, char *err, int n);
 bool getglob(vec_t **cmd);
+char *myrealloc(char *old, char c);
 
 //builtin
 int my_cd(vec_t *params, shell_t *shell);
@@ -72,6 +78,7 @@ int my_exit(vec_t *params, shell_t *shell);
 int my_echo(vec_t *params, shell_t *shell);
 char *value_env(char *str);
 int pars_env(char *str);
-
+int my_alias(vec_t *params, shell_t *shell);
+vec_t *replace_alias(vec_t *cmd, shell_t *shell);
 
 #endif

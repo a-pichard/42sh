@@ -38,7 +38,7 @@ static void exec(char *str, shell_t *shell)
     }
     free(str);
     str = NULL;
-    vec_t *pid = redirection(vec, shell);
+    vec_t *pid = redirection(replace_alias(vec, shell), shell);
     for (int i = 0; pid != NULL && i < pid->element; i++) {
         int s = 0;
         waitpid(*(int *)(pid->content[i]), &s, 0);
