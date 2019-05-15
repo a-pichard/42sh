@@ -44,7 +44,7 @@ vec_t *replace_alias(vec_t *cmd, shell_t *shell)
             my_realloc(((alias_t *)shell->alias->content[j])->cmd, "") : 0;
     }
     dest = my_realloc((char *) cmd->content[0], "");
-    for (int i = 1; i < cmd->element; i += 1) {
+    for (int i = 1; i < (int) cmd->element; i += 1) {
         dest = my_realloc(dest, " ");
         dest = my_realloc(dest, (char *) cmd->content[i]);
     }
