@@ -16,10 +16,31 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 bool is_command_valid(cmd_t *command)
 {
-    return true;
+    int in = 0;
+    int out = 0;
+
+    for (int i = 0; command->sep->content[i] != NULL; i += 1) {
+        if (((char *)command->sep->content[i])[0] != '>' &&
+            ((char *)command->sep->content[i])[0] != '<') {
+            in = 0;
+            out = 0;
+        }
+        (((char *)command->sep->content[i])[0] == '>') ? out += 1 : 0;
+        (((char *)command->sep->content[i])[0] == '>') ? in = 0 : 0;
+        (((char *)command->sep->content[i])[0] == '<') ? in += 1 : 0;
+        (((char *)command->sep->content[i])[0] == '<') ? out = 0 : 0;
+        (in >= 2) ? my_putstr("Ambiguous input redirect.\n") : 0;
+        (out >= 2) ? my_putstr("Ambiguous output redirect.\n") : 0;
+        if (in >= 2)
+            return (false);
+        if (out >= 2)
+            return (false);
+    }
+    return (true);
 }
 
 static void add_pid(vec_t *vec, int pid)
