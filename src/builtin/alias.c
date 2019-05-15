@@ -58,6 +58,7 @@ int my_alias(vec_t *params, shell_t *shell)
     alias_t *alias;
     char *dest;
 
+    shell->status = 0;
     if (params->element <= 2)
         return (0);
     ((alias = malloc(sizeof(alias_t))) == NULL)?my_puterr("malloc error\n"):0;
