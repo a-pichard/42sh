@@ -10,7 +10,7 @@
 #include "vec.h"
 #include <stdbool.h>
 #define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
-#define FUNCTION_PTR {my_env, my_setenv, my_unsetenv,\
+#define FUNCTION_PTR {my_env, my_setenv, my_unsetenv, \
     my_exit, my_cd, my_echo, NULL};
 
 int my_atoi(char *str);

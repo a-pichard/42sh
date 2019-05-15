@@ -44,7 +44,7 @@ static bool do_glob(vec_t *parsed, char *arg)
 bool getglob(vec_t **cmd)
 {
     vec_t *parsed = create_vec();
-    int  i = 0;
+    int i = 0;
     int nb_wildcard = 0;
     int err = 0;
 

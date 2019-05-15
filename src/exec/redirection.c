@@ -19,7 +19,6 @@
 
 bool is_command_valid(cmd_t *command)
 {
-    // (void) command;
     return true;
 }
 
@@ -36,28 +35,23 @@ static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
     int tmp_files[2];
     void *tmp = get(cmd->sep, i);
 
-    if (tmp == NULL) {
-        return true;
-    } else if (!strcmp(tmp, "|")) {
+    if (tmp == NULL && !strcmp(tmp, "|")) {
         pipe(tmp_files);
         files[1] = tmp_files[1];
         *for_next = tmp_files[0];
-        return true;
-    } else if (is_redir(tmp)) {
+    } else if (tmp == NULL && is_redir(tmp)) {
         if (!strcmp(tmp, ">") || !strcmp(tmp, ">>"))
             files[1] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, ">>")?
             O_WRONLY | O_CREAT | O_APPEND:O_WRONLY | O_TRUNC | O_CREAT, 0644);
         else
             files[0] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, "<<")?
-            O_RDONLY : O_RDONLY, 0644);    
+            O_RDONLY : O_RDONLY, 0644);
         tmp = cmd->cmd[i + 1];
         cmd->cmd[i + 1] = cmd->cmd[i];
         cmd->cmd[i] = tmp;
         return false;
-    } else {
-        return true;
     }
-    return false;
+    return true;
 }
 
 vec_t *redirection(vec_t *commands, shell_t *shell)
