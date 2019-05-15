@@ -69,10 +69,13 @@ int command(vec_t *command, shell_t *shell, int files[2])
     char *builtin[] = {"env", "setenv", "unsetenv", "exit", "cd", "echo", NULL};
     int (*function[])(vec_t *params, shell_t *status) = FUNCTION_PTR;
     int n = index_of_str((char *)(command->content[0]), builtin);
-    int pid = fork();
+    int pid;
 
-    if (n == 2 || n == 3 || n == 4 || (n == 1 && (int)command->element > 1))
-        (function[n])(command, shell);    
+    if (n == 2 || n == 3 || n == 4 || (n == 1 && (int)command->element > 1)) {
+        (function[n])(command, shell);
+        return (-1);
+    }
+    pid = fork();
     if (pid == -1) {
         my_puterr("fork error\n");
         exit(84);
