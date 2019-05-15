@@ -61,5 +61,6 @@ void myshell(shell_t *shell)
             exit_shell(shell, str);
         exec(str, shell);
         str = NULL;
+        n = 0;
     }
 }
