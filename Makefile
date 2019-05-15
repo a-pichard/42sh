@@ -23,6 +23,7 @@ BLUE	=	\e[1;34m
 SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/my_shell.c	\
 		$(SRC_DIR)/prompt.c	\
+		$(SRC_DIR)/close_fd.c	\
 		$(SRC_DIR)/utils/vec/apply.c	\
 		$(SRC_DIR)/builtin/pars_env.c	\
 		$(SRC_DIR)/utils/vec/create.c	\
@@ -58,7 +59,7 @@ all:	$(NAME) lol
 debug: val $(NAME)
 
 val:
-        $(eval CFLAGS	+=	-g)
+	$(eval CFLAGS	+=	-g)
 
 lol:
 	@printf "****************************************\n"

@@ -8,7 +8,10 @@
 #ifndef SH_H_
 #define SH_H_
 #include "vec.h"
+#include <stdbool.h>
 #define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
+#define FUNCTION_PTR {my_env, my_setenv, my_unsetenv,\
+    my_exit, my_cd, my_echo, NULL};
 
 int my_atoi(char *str);
 void my_putchar(char c);
@@ -40,11 +43,23 @@ struct shell_s
 };
 
 typedef struct shell_s shell_t;
+//shell
 void myshell(shell_t *shell);
 void prompt(void);
+
+void close_fd(int files[2]);
+
 //command
 int command(vec_t *command, shell_t *shell, int files[2]);
 vec_t *redirection(vec_t *commands, shell_t *shell);
+cmd_t *parser(vec_t *splited_cmd);
+void handle_sigint(int sig);
+int is_redirs(char *str);
+bool is_redir(const char *str);
+vec_t *parser_sep(char *cmd);
+void print_err(int s, shell_t *shell);
+void my_exiterr(char *str, char *err, int n);
+
 //builtin
 int my_cd(vec_t *params, shell_t *shell);
 int cd_with_args(vec_t *params, shell_t *shell);
@@ -53,14 +68,9 @@ int my_env(vec_t *params, shell_t *shell);
 int my_setenv(vec_t *params, shell_t *shell);
 int my_unsetenv(vec_t *params, shell_t *shell);
 int my_exit(vec_t *params, shell_t *shell);
-void my_exiterr(char *str, char *err, int n);
 int my_echo(vec_t *params, shell_t *shell);
 char *value_env(char *str);
 int pars_env(char *str);
-cmd_t *parser(vec_t *splited_cmd);
-void handle_sigint(int sig);
-int is_redirs(char *str);
-int is_redir(char *str);
-vec_t *parser_sep(char *cmd);
+
 
 #endif

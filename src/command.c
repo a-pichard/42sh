@@ -56,21 +56,23 @@ void print_err(int s, shell_t *shell)
     shell->status = WTERMSIG(s) + 128;
 }
 
-int do_command(vec_t *command, shell_t *shell)
+void do_command(vec_t *command, shell_t *shell)
 {
+    (void) shell;
     my_bin(command->content[0], command);
     execvp(command->content[0], (char * const *)command->content);
-    my_exiterr(command->content[0], ": Command not found\n", 1);
+    my_exiterr(command->content[0], ": Command not found.\n", 1);
 }
 
 int command(vec_t *command, shell_t *shell, int files[2])
 {
     char *builtin[] = {"env", "setenv", "unsetenv", "exit", "cd", "echo", NULL};
-    int (*function[])(vec_t *params, shell_t *status) = {my_env, my_setenv,
-        my_unsetenv, my_exit, my_cd, my_echo, NULL};
+    int (*function[])(vec_t *params, shell_t *status) = FUNCTION_PTR;
     int n = index_of_str((char *)(command->content[0]), builtin);
     int pid = fork();
 
+    if (n == 1 || n == 2 || n == 3 || n == 4)
+        (function[n])(command, shell);
     if (pid == -1) {
         my_puterr("fork error\n");
         exit(84);
@@ -80,9 +82,8 @@ int command(vec_t *command, shell_t *shell, int files[2])
         if (n != -1) {
             (function[n])(command, shell);
             exit(0);
-        } else {
+        } else
             do_command(command, shell);
-        }
     }
     return (pid);
 }

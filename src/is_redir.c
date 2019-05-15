@@ -6,25 +6,26 @@
 */
 
 #include <string.h>
+#include <stdbool.h>
 
-int is_redir(char *str)
+bool is_redir(const char *str)
 {
     int len;
 
     if (str == NULL)
-        return (0);
+        return (false);
     len = strlen(str);
     if (len != 1 && len != 2)
-        return (0);
+        return (false);
     if (!strcmp(str, ">"))
-        return (1);
+        return (true);
     if (!strcmp(str, ">>"))
-        return (1);
+        return (true);
     if (!strcmp(str, "<"))
-        return (1);
+        return (true);
     if (!strcmp(str, "<<"))
-        return (1);
-    return (0);
+        return (true);
+    return (false);
 }
 
 int is_redirs(char *str)

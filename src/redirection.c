@@ -19,6 +19,7 @@
 
 bool is_command_valid(cmd_t *command)
 {
+    // (void) command;
     return true;
 }
 
@@ -33,7 +34,7 @@ static void add_pid(vec_t *vec, int pid)
 static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
 {
     int tmp_files[2];
-    char *tmp = get(cmd->sep, i);
+    void *tmp = get(cmd->sep, i);
 
     if (tmp == NULL) {
         return true;
@@ -42,6 +43,17 @@ static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
         files[1] = tmp_files[1];
         *for_next = tmp_files[0];
         return true;
+    } else if (is_redir(tmp)) {
+        if (!strcmp(tmp, ">") || !strcmp(tmp, ">>"))
+            files[1] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, ">>")?
+            O_WRONLY | O_CREAT | O_APPEND:O_WRONLY | O_TRUNC | O_CREAT, 0644);
+        else
+            files[0] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, "<<")?
+            O_RDONLY : O_RDONLY, 0644);    
+        tmp = cmd->cmd[i + 1];
+        cmd->cmd[i + 1] = cmd->cmd[i];
+        cmd->cmd[i] = tmp;
+        return false;
     } else {
         return true;
     }
@@ -59,15 +71,12 @@ vec_t *redirection(vec_t *commands, shell_t *shell)
     if (!is_command_valid(cmd))
         return NULL;
     for (int i = 0; i < (cmd->nb_cmd - 1); i++) {
-        if (files[0] != 0)
-            close(files[0]);
-        if (files[1] != 1)
-            close(files[1]);
-        files[0] = for_next;
-        files[1] = 1;
         if (update_file(cmd, i, files, &for_next)) {
             return_pid = command(cmd->cmd[i], shell, files);
             add_pid(pid, return_pid);
+            close_fd(files);
+            files[0] = for_next;
+            files[1] = 1;
         }
     }
     return (pid);
