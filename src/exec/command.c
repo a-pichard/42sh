@@ -72,8 +72,8 @@ int command(vec_t *command, shell_t *shell, int files[2])
     int n = index_of_str((char *)(command->content[0]), builtin);
     int pid = fork();
 
-    if (n == 1 || n == 2 || n == 3 || n == 4 || n == 6)
-        (function[n])(command, shell);
+    if (n == 2 || n == 3 || n == 4 || (n == 1 && (int)command->element > 1) || n == 6)
+        (function[n])(command, shell);    
     if (pid == -1) {
         my_puterr("fork error\n");
         exit(84);
