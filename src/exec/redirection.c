@@ -30,6 +30,18 @@ static void add_pid(vec_t *vec, int pid)
     push(vec, new);
 }
 
+static void cmd_destoy(cmd_t *cmd)
+{
+    if (cmd != NULL) {
+        destroy_vec(cmd->sep, free);
+        for (int i = 0; i < cmd->nb_cmd; i++) {
+            destroy_vec(cmd->cmd[i], free);
+        }
+        free(cmd->cmd);
+        free(cmd);
+    }
+}
+
 static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
 {
     int tmp_files[2];
@@ -73,5 +85,6 @@ vec_t *redirection(vec_t *commands, shell_t *shell)
             files[1] = 1;
         }
     }
+    cmd_destoy(cmd);
     return (pid);
 }
