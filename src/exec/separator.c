@@ -27,10 +27,11 @@ static bool and(shell_t *shell)
 
 static bool semicolon(shell_t *shell)
 {
+    (void) shell;
     return (true);
 }
 
-static void check_exec(vec_t *command, shell_t *shell, int *i,
+static void check_exec(vec_t *command, shell_t *shell, size_t *i,
         bool (*ptr)(shell_t *shell))
 {
     if (ptr(shell)) {
@@ -49,10 +50,9 @@ void exec_separator(char *str, shell_t *shell)
     bool (*functions[])(shell_t *shell) = {or, and, semicolon, NULL};
     vec_t *command = parser_sep(str);
     int index = -1;
-    int last = 1;
     bool (*ptr)(shell_t *shell) = semicolon;
 
-    for (int i = 0; i < command->element; i++) {
+    for (size_t i = 0; i < command->element; i++) {
         index = index_of_str(command->content[i], sep);
         if (index == -1) {
             check_exec(command, shell, &i, ptr);

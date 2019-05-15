@@ -14,6 +14,7 @@ int main(void)
 
     shell.status = 0;
     shell.prev_dir = NULL;
+    shell.alias = create_vec();
     signal(SIGINT, handle_sigint);
     myshell(&shell);
     return (0);

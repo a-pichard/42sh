@@ -28,6 +28,7 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/exec/separator.c	\
 		$(SRC_DIR)/builtin/pars_env.c	\
 		$(SRC_DIR)/builtin/cd.c	\
+		$(SRC_DIR)/builtin/alias.c	\
 		$(SRC_DIR)/builtin/cd_with_args.c	\
 		$(SRC_DIR)/builtin/echo.c	\
 		$(SRC_DIR)/builtin/env.c	\

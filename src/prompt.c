@@ -26,7 +26,7 @@ static int get_pathlen(char *path)
     return (i);
 }
 
-static char *myrealloc(char *old, char c)
+char *myrealloc(char *old, char c)
 {
     char *str = xmalloc(sizeof(char) * 2);
 

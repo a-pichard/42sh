@@ -16,10 +16,31 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 bool is_command_valid(cmd_t *command)
 {
-    return true;
+    int in = 0;
+    int out = 0;
+
+    for (int i = 0; command->sep->content[i] != NULL; i += 1) {
+        if (((char *)command->sep->content[i])[0] != '>' &&
+            ((char *)command->sep->content[i])[0] != '<') {
+            in = 0;
+            out = 0;
+        }
+        (((char *)command->sep->content[i])[0] == '>') ? out += 1 : 0;
+        (((char *)command->sep->content[i])[0] == '>') ? in = 0 : 0;
+        (((char *)command->sep->content[i])[0] == '<') ? in += 1 : 0;
+        (((char *)command->sep->content[i])[0] == '<') ? out = 0 : 0;
+        (in >= 2) ? my_putstr("Ambiguous input redirect.\n") : 0;
+        (out >= 2) ? my_putstr("Ambiguous output redirect.\n") : 0;
+        if (in >= 2)
+            return (false);
+        if (out >= 2)
+            return (false);
+    }
+    return (true);
 }
 
 static void add_pid(vec_t *vec, int pid)
@@ -28,6 +49,30 @@ static void add_pid(vec_t *vec, int pid)
 
     *new = pid;
     push(vec, new);
+}
+
+static void get_user_stdin_input(int fd[2], char *arg)
+{
+    char *str = NULL;
+    size_t n = 0;
+
+    my_putstr("? ");
+    while (42) {
+        if (getline(&str, &n, stdin) < 1)
+            break;
+        my_putstr("? ");
+        if (write(fd[1], str, strlen(str)) == -1)
+            perror("write");
+    }
+}
+
+static void redirect_stdin_double(void *tmp, int files[2])
+{
+    if (pipe(files) == -1)
+        perror("pipe");
+    get_user_stdin_input(files, tmp);
+    close(files[1]);
+    dup2(files[0], 0);
 }
 
 static void cmd_destoy(cmd_t *cmd)
@@ -46,21 +91,28 @@ static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
 {
     int tmp_files[2];
     void *tmp = get(cmd->sep, i);
+    int status;
+    pid_t pid;
 
     if (tmp != NULL && !strcmp(tmp, "|")) {
         pipe(tmp_files);
         files[1] = tmp_files[1];
         *for_next = tmp_files[0];
     } else if (tmp != NULL && is_redir(tmp)) {
-        if (!strcmp(tmp, ">") || !strcmp(tmp, ">>"))
-            files[1] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, ">>")?
-            O_WRONLY | O_CREAT | O_APPEND:O_WRONLY | O_TRUNC | O_CREAT, 0644);
-        else
-            files[0] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, "<<")?
-            O_RDONLY : O_RDONLY, 0644);
-        tmp = cmd->cmd[i + 1];
-        cmd->cmd[i + 1] = cmd->cmd[i];
-        cmd->cmd[i] = tmp;
+        if ((pid = fork()) == 0) {
+            if (!strcmp(tmp, ">") || !strcmp(tmp, ">>"))
+                files[1] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, ">>")?
+                O_WRONLY | O_CREAT | O_APPEND:O_WRONLY | O_TRUNC | O_CREAT, 0644);
+            else {
+                files[0] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, "<<")?
+                O_RDONLY : O_RDONLY, 0644);
+                (!strcmp(tmp, "<<")) ? redirect_stdin_double(tmp, files) : 0;
+            }
+            tmp = cmd->cmd[i + 1];
+            cmd->cmd[i + 1] = cmd->cmd[i];
+            cmd->cmd[i] = tmp;
+        }
+        waitpid(0, &status, 0);
         return false;
     }
     return true;

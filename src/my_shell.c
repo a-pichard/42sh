@@ -38,8 +38,8 @@ void exec(char *str, shell_t *shell)
     }
     free(str);
     str = NULL;
-    vec_t *pid = redirection(vec, shell);
-    for (int i = 0; pid != NULL && i < pid->element; i++) {
+    vec_t *pid = redirection(replace_alias(vec, shell), shell);
+    for (int i = 0; pid != NULL && i < (int) pid->element; i++) {
         int s = 0;
         waitpid(*(int *)(pid->content[i]), &s, 0);
         (WIFSIGNALED(s))?print_err(s, shell):
@@ -61,5 +61,6 @@ void myshell(shell_t *shell)
             exit_shell(shell, str);
         exec_separator(str, shell);
         str = NULL;
+        n = 0;
     }
 }
