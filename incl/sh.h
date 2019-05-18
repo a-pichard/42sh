@@ -9,6 +9,11 @@
 #define SH_H_
 #include "vec.h"
 #include <stdbool.h>
+#ifdef __GNUC__
+#define UNUSED __attribute__((unused))
+#else
+#define UNUSED //nothing
+#endif
 #define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
 #define FUNCTION_PTR {my_env, my_setenv, my_unsetenv, \
             my_exit, my_cd, my_echo, my_alias, NULL};
