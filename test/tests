@@ -94,8 +94,8 @@ NAME="Launch DivZero program with core dump"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'; gcc seg.c -lm -o seg"
 CLEAN=""
 TESTS=
-  echo './seg 8 0'
-  echo 'rm seg'
+  echo "./seg 8 0"
+  echo "rm seg"
 [909-END]
 
 [910]
@@ -103,8 +103,8 @@ NAME="Launch SegFault program without core dump"
 SETUP="ulimit -c 0 ; export TERM=xterm ; PATH='/bin:/usr/bin'; gcc seg.c -lm -o seg"
 CLEAN=""
 TESTS=
-  echo './seg 11 1'
-  echo 'rm seg'
+  echo "./seg 11 1"
+  echo "rm seg"
 [910-END]
 
 [911]
@@ -120,10 +120,10 @@ NAME="A pipe with a builtin ?"
 SETUP="export VAR1=VALEUR1 ; OLDPATH=$PATH ; PATH='/random'"
 CLEAN="PATH=$OLDPATH"
 TESTS=
-  echo 'setenv | /bin/grep VAR1'
-  echo '/bin/ls | cd /usr'
-  echo '/bin/ls -l'
-  echo 'exit 45|/bin/cat /etc/resolv.conf'
+  echo "setenv | /bin/grep VAR1"
+  echo "/bin/ls | cd /usr"
+  echo "/bin/ls -l"
+  echo "exit 45|/bin/cat /etc/resolv.conf"
 [912-END]
 
 [913]
@@ -131,8 +131,8 @@ NAME="my test buildin"
 SETUP="export BITE=BITE"
 CLEAN=""
 TESTS=
-echo 'cd /usr | wc'
-echo '/bin/ls -l'
+echo "cd /usr | wc"
+echo "/bin/ls -l"
 [913-END]
 
 [914]
@@ -140,8 +140,8 @@ NAME="alias"
 SETUP=""
 CLEAN=""
 TESTS=
-echo 'alias chat cat'
-echo ls | cat -e'
+echo "alias chat cat"
+echo "ls | cat -e"
 [914-END]
 
 [915]
@@ -149,10 +149,10 @@ NAME="redirection"
 SETUP=""
 CLEAN=""
 TESTS=
-echo 'ls > my_file -l'
-echo 'wc my_file >> my_file'
-echo 'cat -e < my_file | grep x'
-echo 'rm -f my_file'
+echo "ls > my_file -l"
+echo "wc my_file >> my_file"
+echo "cat -e < my_file"
+echo "rm -f my_file"
 [915-END]
 
 [916]
@@ -160,9 +160,9 @@ NAME="echo"
 SETUP=""
 CLEAN=""
 TESTS=
-echo 'echo $path $PATH'
-echo 'echo salut$coucou'
-echo 'echo $?'
+echo "echo $path $PATH"
+echo "echo salut$coucou"
+echo "echo $?"
 [916-END]
 
 [917]
@@ -170,5 +170,5 @@ NAME="separators"
 SETUP=""
 CLEAN=""
 TESTS=
-echo 'ls; echo $? || cat /usr/bin/zcat || ls && tree -r ..'
+echo "ls; echo $? || cat /usr/bin/zcat || ls && tree -r .."
 [917-END]
