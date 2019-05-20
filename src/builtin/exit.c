@@ -9,6 +9,7 @@
 #include "vec.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <unistd.h>
 
 static void destroy(vec_t *params, shell_t *shell)
 {

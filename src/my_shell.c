@@ -17,7 +17,7 @@ static void exit_shell(shell_t *shell, char *cmd)
 {
     int status = shell->status;
 
-    my_putstr("exit\n");
+    (isatty(0) == 1) ? my_putstr("exit\n") : 0;
     if (cmd != NULL)
         free(cmd);
     if (shell->prev_dir != NULL)
