@@ -24,6 +24,7 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/my_shell.c	\
 		$(SRC_DIR)/prompt.c	\
 		$(SRC_DIR)/close_fd.c	\
+		$(SRC_DIR)/init.c	\
 		$(SRC_DIR)/signal.c	\
 		$(SRC_DIR)/exec/separator.c	\
 		$(SRC_DIR)/builtin/pars_env.c	\

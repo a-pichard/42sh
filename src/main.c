@@ -16,6 +16,7 @@ int main(void)
     shell.prev_dir = NULL;
     shell.alias = create_vec();
     signal(SIGINT, handle_sigint);
+    init_shell(&shell);
     myshell(&shell);
     return (0);
 }
