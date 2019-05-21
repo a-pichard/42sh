@@ -38,6 +38,9 @@ void exec(char *str, shell_t *shell)
     }
     free(str);
     str = NULL;
+    if (!strcmp(vec->content[0], "which")) {
+        my_which(vec, shell);
+    }
     vec_t *pid = redirection(replace_alias(vec, shell), shell);
     for (int i = 0; pid != NULL && i < (int) pid->element; i++) {
         int s = 0;
