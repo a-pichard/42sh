@@ -15,8 +15,7 @@
 #define UNUSED //nothing
 #endif
 #define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
-#define FUNCTION_PTR {my_env, my_setenv, my_unsetenv, \
-            my_exit, my_cd, my_echo, my_alias, NULL};
+#define FUNCTION_PTR {my_env, my_setenv, my_unsetenv, my_exit, my_cd, my_echo, my_alias, NULL};
 
 int my_atoi(char *str);
 void my_putchar(char c);
@@ -86,6 +85,7 @@ int my_echo(vec_t *params, shell_t *shell);
 char *value_env(char *str);
 int pars_env(char *str);
 int my_alias(vec_t *params, shell_t *shell);
+int my_which(vec_t *params, shell_t *shell);
 vec_t *replace_alias(vec_t *cmd, shell_t *shell);
 
 #endif
