@@ -27,3 +27,18 @@ char *my_strcat(char *src, char *src_bis)
     str[i + j] = '\0';
     return (str);
 }
+
+char *vec_to_str(vec_t *cmd, int n)
+{
+    char *dest = "";
+
+    for (int i = 0; i < (int) cmd->element; i += 1) {
+        dest = my_realloc(dest, (char *)cmd->content[i]);
+        if (i + 1 < (int) cmd->element)
+            dest = my_realloc(dest, " ");
+    }
+    dest = my_realloc(dest, "\n");
+    if (n)
+        write_history(dest);
+    return (dest);
+}

@@ -46,11 +46,14 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/utils/str/my_str_to_word_tab_plus.c	\
 		$(SRC_DIR)/utils/str/my_strcat.c	\
 		$(SRC_DIR)/utils/puts.c	\
+		$(SRC_DIR)/utils/return.c	\
 		$(SRC_DIR)/utils/tab_utils.c	\
 		$(SRC_DIR)/utils/verif_malloc.c \
 		$(SRC_DIR)/utils/my_atoi.c	\
 		$(SRC_DIR)/utils/index_of.c	\
 		$(SRC_DIR)/exec/command.c	\
+		$(SRC_DIR)/exec/history.c	\
+		$(SRC_DIR)/exec/write_history.c	\
 		$(SRC_DIR)/exec/redirection.c	\
 		$(SRC_DIR)/exec/error.c	\
 		$(SRC_DIR)/parser/is_redir.c	\
@@ -60,10 +63,7 @@ SRC	=	$(SRC_DIR)/main.c	\
 
 all:	$(NAME) lol
 
-debug: val $(NAME)
-
-val:
-	$(eval CFLAGS	+=	-g)
+debug: fclean $(eval CFLAGS	+=	-g) $(NAME)
 
 lol:
 	@printf "****************************************\n"

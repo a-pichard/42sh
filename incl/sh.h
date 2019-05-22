@@ -16,8 +16,12 @@
 #endif
 #define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
 #define FUNCTION_PTR {my_env, my_setenv, my_unsetenv, \
-            my_exit, my_cd, my_echo, my_alias, NULL};
+                    my_exit, my_cd, my_echo, my_alias, NULL};
 
+int puterr_str(char *str, char *err, int ret);
+int puterr_nb(int nb, char *err, int ret);
+int my_atoi_f(char *str, int n);
+int my_atoi_d(char *str);
 int my_atoi(char *str);
 void my_putchar(char c);
 void my_putstr(char const *str);
@@ -33,6 +37,7 @@ vec_t *my_str_to_word_tab_plus(char *str, char *separators,
 char **separator_and_word);
 void my_putnbr(int n);
 char *my_strcat(char *src, char *src_bis);
+char *vec_to_str(vec_t *cmd, int n);
 
 typedef struct {
     int nb_cmd;
@@ -56,7 +61,7 @@ typedef struct shell_s shell_t;
 //shell
 void myshell(shell_t *shell);
 void prompt(void);
-
+void init_shell(shell_t *shell);
 void close_fd(int files[2]);
 
 //command
@@ -73,8 +78,11 @@ bool getglob(vec_t **cmd);
 char *myrealloc(char *old, char c);
 void exec(char *str, shell_t *shell);
 void exec_separator(char *str, shell_t *shell);
+void write_history(char *str);
+char *history(char *str);
 
 //builtin
+char *my_realloc(char *str, char *src);
 int my_cd(vec_t *params, shell_t *shell);
 int cd_with_args(vec_t *params, shell_t *shell);
 void check_dir(char *path, char *temp_prev);
