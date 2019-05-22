@@ -30,7 +30,7 @@ int is_an_alias(vec_t *params, shell_t *shell, int j)
     return (0);
 }
 
-int is_an_builtin(vec_t *params, shell_t *shell, int j)
+int is_an_builtin(vec_t *params, UNUSED shell_t *shell, int j)
 {
     char *builtin[] = {"env", "setenv", "unsetenv", "exit", "cd", "echo", \
     "alias", "which", NULL};
