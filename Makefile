@@ -20,47 +20,10 @@ ORANGE	=	\e[1;33m
 RED	=	\e[1;35m
 BLUE	=	\e[1;34m
 
-SRC	=	$(SRC_DIR)/main.c	\
-		$(SRC_DIR)/my_shell.c	\
-		$(SRC_DIR)/prompt.c	\
-		$(SRC_DIR)/close_fd.c	\
-		$(SRC_DIR)/init.c	\
-		$(SRC_DIR)/signal.c	\
-		$(SRC_DIR)/exec/separator.c	\
-		$(SRC_DIR)/builtin/pars_env.c	\
-		$(SRC_DIR)/builtin/cd.c	\
-		$(SRC_DIR)/builtin/alias.c	\
-		$(SRC_DIR)/builtin/cd_with_args.c	\
-		$(SRC_DIR)/builtin/echo.c	\
-		$(SRC_DIR)/builtin/env.c	\
-		$(SRC_DIR)/builtin/exit.c	\
-		$(SRC_DIR)/builtin/setenv.c	\
-		$(SRC_DIR)/builtin/unsetenv.c	\
-		$(SRC_DIR)/builtin/which.c	\
-		$(SRC_DIR)/utils/vec/apply.c	\
-		$(SRC_DIR)/utils/vec/create.c	\
-		$(SRC_DIR)/utils/vec/destroy.c	\
-		$(SRC_DIR)/utils/vec/get.c	\
-		$(SRC_DIR)/utils/vec/pop.c	\
-		$(SRC_DIR)/utils/vec/push.c	\
-		$(SRC_DIR)/utils/vec/set.c	\
-		$(SRC_DIR)/utils/str/my_str_to_word_tab_plus.c	\
-		$(SRC_DIR)/utils/str/my_strcat.c	\
-		$(SRC_DIR)/utils/puts.c	\
-		$(SRC_DIR)/utils/return.c	\
-		$(SRC_DIR)/utils/tab_utils.c	\
-		$(SRC_DIR)/utils/verif_malloc.c \
-		$(SRC_DIR)/utils/my_atoi.c	\
-		$(SRC_DIR)/utils/index_of.c	\
-		$(SRC_DIR)/exec/command.c	\
-		$(SRC_DIR)/exec/history.c	\
-		$(SRC_DIR)/exec/write_history.c	\
-		$(SRC_DIR)/exec/redirection.c	\
-		$(SRC_DIR)/exec/error.c	\
-		$(SRC_DIR)/parser/is_redir.c	\
-		$(SRC_DIR)/parser/parser.c	\
-		$(SRC_DIR)/parser/parser_sep.c	\
-		$(SRC_DIR)/parser/getglob.c
+TESTS_DIR	=	tests/unit_test
+MAIN	=	main.c
+SRC_TESTS	=	$(shell find $(SRC_DIR) $(TESTS_DIR) -type f -name '*.c' -not -path $(SRC_DIR)/$(MAIN) 2> /dev/null)
+SRC	=	$(shell find $(SRC_DIR)/ -type f -name '*.c')
 
 all:	$(NAME) lol
 
@@ -87,6 +50,15 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 
 $(NAME)	:	$(OBJ)
 	@$(CC) -o $(NAME) $^
+
+
+tests_run:
+	@$(V)$(CC) $(CFLAGS) $(SRC_TESTS) -o unit_test -Iinclude -lcriterion --coverage $(LDFLAGS)
+	printf "$(BLUE)Compile sources and tests : $(GREEN)success$(WHITE)\n"
+	printf "$(BLUE)Launching tests...$(WHITE)\n"
+	./unit_test
+	gcovr --branches --exclude tests
+	$(V)$(RM) unit_test
 
 clean:
 	@rm -Rf $(OBJ_DIR)
