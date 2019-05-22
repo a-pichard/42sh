@@ -58,7 +58,6 @@ tests_run:
 	printf "$(BLUE)Launching tests...$(WHITE)\n"
 	./unit_test
 	gcovr --branches --exclude tests
-	$(V)$(RM) unit_test
 
 clean:
 	@rm -Rf $(OBJ_DIR)

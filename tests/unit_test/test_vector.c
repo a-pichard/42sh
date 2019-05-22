@@ -4,8 +4,8 @@
 
 Test(test_vector1, vector)
 {
-    const char *test1 = "salut";
-    const char *test2 = "caca";
+    char *test1 = "salut";
+    char *test2 = "caca";
     vec_t *vec = create_vec();
 
     push(vec, test1);
