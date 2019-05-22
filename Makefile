@@ -36,6 +36,7 @@ SRC	=	$(SRC_DIR)/main.c	\
 		$(SRC_DIR)/builtin/exit.c	\
 		$(SRC_DIR)/builtin/setenv.c	\
 		$(SRC_DIR)/builtin/unsetenv.c	\
+		$(SRC_DIR)/builtin/which.c	\
 		$(SRC_DIR)/utils/vec/apply.c	\
 		$(SRC_DIR)/utils/vec/create.c	\
 		$(SRC_DIR)/utils/vec/destroy.c	\

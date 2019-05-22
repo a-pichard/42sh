@@ -58,7 +58,7 @@ static void get_user_stdin_input(int fd[2], char *arg)
 
     my_putstr("? ");
     while (42) {
-        if (getline(&str, &n, stdin) < 1)
+        if (getline(&str, &n, stdin) < 1 || str == NULL)
             break;
         my_putstr("? ");
         if (write(fd[1], str, strlen(str)) == -1)
@@ -66,13 +66,14 @@ static void get_user_stdin_input(int fd[2], char *arg)
     }
 }
 
-static void redirect_stdin_double(void *tmp, int files[2])
+static int redirect_stdin_double(void *tmp, int files[2])
 {
     if (pipe(files) == -1)
         perror("pipe");
     get_user_stdin_input(files, tmp);
-    close(files[1]);
     dup2(files[0], 0);
+    close(files[1]);
+    return (1);
 }
 
 static void cmd_destoy(cmd_t *cmd)
@@ -99,23 +100,20 @@ static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
         files[1] = tmp_files[1];
         *for_next = tmp_files[0];
     } else if (tmp != NULL && is_redir(tmp)) {
-        if ((pid = fork()) == 0) {
-            if (!strcmp(tmp, ">") || !strcmp(tmp, ">>"))
-                files[1] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, ">>")?
-                O_WRONLY | O_CREAT | O_APPEND:O_WRONLY | O_TRUNC | O_CREAT, 0644);
-            else {
-                files[0] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, "<<")?
-                O_RDONLY : O_RDONLY, 0644);
-                (!strcmp(tmp, "<<")) ? redirect_stdin_double(tmp, files) : 0;
-            }
-            tmp = cmd->cmd[i + 1];
-            cmd->cmd[i + 1] = cmd->cmd[i];
-            cmd->cmd[i] = tmp;
+        if (!strcmp(tmp, ">") || !strcmp(tmp, ">>"))
+            files[1] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, ">>")?
+            O_WRONLY | O_CREAT | O_APPEND:O_WRONLY | O_TRUNC | O_CREAT, 0644);
+        else {
+            files[0] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, "<<")?
+            O_RDONLY : O_RDONLY, 0644);
+            (!strcmp(tmp, "<<")) ? redirect_stdin_double(tmp, files) : 0;
         }
-        waitpid(0, &status, 0);
-        return false;
+        tmp = cmd->cmd[i + 1];
+        cmd->cmd[i + 1] = cmd->cmd[i];
+        cmd->cmd[i] = tmp;
+        return (false);
     }
-    return true;
+    return (true);
 }
 
 vec_t *redirection(vec_t *commands, shell_t *shell)
