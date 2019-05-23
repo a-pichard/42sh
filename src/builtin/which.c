@@ -55,7 +55,7 @@ int is_an_path(vec_t *params, int j)
 
     for (int i = 0; path_tab->content[i] != NULL; i++) {
         new_path = strcat(strcat(path_tab->content[i], "/"), params->content[j]);
-        if (access(new_path, X_OK) != 1) {
+        if (access(new_path, X_OK) == 0) {
             my_putstr(new_path);
             my_putchar('\n');
             return (1);
