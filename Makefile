@@ -29,6 +29,8 @@ all:	$(NAME) lol
 
 debug: fclean $(eval CFLAGS	+=	-g) $(NAME)
 
+bonus: fclean $(eval CFLAGS	+=	-D __BONUS__) $(NAME) lol
+
 lol:
 	@printf "****************************************\n"
 	@printf "* $(RED)██╗  ██╗$(BLUE)██████╗     $(ORANGE)███████╗$(GREEN)██╗  ██╗ $(WHITE)*\n"
@@ -50,6 +52,7 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 
 $(NAME)	:	$(OBJ)
 	@$(CC) -o $(NAME) $^
+
 
 
 tests_run:
