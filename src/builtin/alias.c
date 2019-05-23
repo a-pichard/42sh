@@ -31,26 +31,6 @@ char *my_realloc(char *str, char *src)
     return (dest);
 }
 
-vec_t *replace_alias(vec_t *cmd, shell_t *shell)
-{
-    char *dest;
-    vec_t *vec;
-    char *separators[] = SEPARATOR;
-
-    for (int j = 0; j < (int) shell->alias->element; j += 1)
-        (!strcmp((char *)cmd->content[0], ((alias_t *)shell->alias->
-        content[j])->alias)) ? cmd->content[0] =
-        my_realloc(((alias_t *)shell->alias->content[j])->cmd, "") : 0;
-    dest = my_realloc((char *) cmd->content[0], "");
-    for (int i = 1; i < (int) cmd->element; i += 1) {
-        dest = my_realloc(dest, " ");
-        dest = my_realloc(dest, (char *) cmd->content[i]);
-    }
-    vec = my_str_to_word_tab_plus(dest, " \t\n", separators);
-    free(dest);
-    return (vec);
-}
-
 int my_alias(vec_t *params, shell_t *shell)
 {
     alias_t *alias;

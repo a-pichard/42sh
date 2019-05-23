@@ -45,6 +45,8 @@ char **separator_and_word);
 void my_putnbr(int n);
 char *my_strcat(const char *src, const char *src_bis);
 char *vec_to_str(vec_t *cmd);
+char *int_to_str(int n);
+char *space_to_point(char *str);
 
 typedef struct {
     int nb_cmd;
@@ -104,5 +106,6 @@ int my_alias(vec_t *params, shell_t *shell);
 int my_which(vec_t *params, shell_t *shell);
 int my_where(vec_t *params, shell_t *shell);
 vec_t *replace_alias(vec_t *cmd, shell_t *shell);
+int value_echo(char *str);
 
 #endif

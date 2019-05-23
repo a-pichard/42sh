@@ -38,6 +38,8 @@ char *int_to_str(int n)
     char *dest = xmalloc(sizeof(char) * 6);
     int i;
 
+    if (!n)
+        return ("0");
     for (i = 0; n > 0; i += 1) {
         dest[i] = n % 10 + 48;
         n = n / 10;

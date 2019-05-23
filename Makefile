@@ -27,7 +27,7 @@ SRC	=	$(shell find $(SRC_DIR)/ -type f -name '*.c')
 
 all:	$(NAME) lol
 
-debug: fclean $(NAME)
+debug: fclean val $(NAME)
 
 val:
 	$(eval CFLAGS	+=	-g)

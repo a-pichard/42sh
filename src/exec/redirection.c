@@ -121,13 +121,14 @@ vec_t *redirection(vec_t *commands, shell_t *shell)
     int for_next = 0;
     int files[2] = {0, 1};
     int return_pid;
+    vec_t *mem;
 
     if (!is_command_valid(cmd))
         return NULL;
     for (int i = 0; i < (cmd->nb_cmd - 1); i++) {
         if (update_file(cmd, i, files, &for_next)) {
-            return_pid = command(replace_alias(cmd->cmd[i], shell),
-                shell, files);
+            mem = replace_alias(cmd->cmd[i], shell);
+            (mem != NULL) ? return_pid = command(mem,shell, files) : 0;
             add_pid(pid, return_pid);
             close_fd(files);
             files[0] = for_next;
