@@ -16,6 +16,7 @@
 #endif
 #define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
 #define FUNCTION_PTR {my_env, my_setenv, my_unsetenv, my_exit, my_cd, my_echo, my_alias, my_which, NULL};
+#define COMMAND_STR {"env", "setenv", "unsetenv", "exit", "cd", "echo", "alias", "which", NULL};
 
 int puterr_str(char *str, char *err, int ret);
 int puterr_nb(int nb, char *err, int ret);
