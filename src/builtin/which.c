@@ -51,18 +51,19 @@ int my_which(vec_t *params, shell_t *shell)
     if (params->element == 1) {
         my_puterr(params->content[0]);
         my_puterr(": Too few arguments.\n");
+        shell->status = 1;
         return (1);
     }
     for (int j = 1; params->content[j] != NULL; pass = 0, j++) {
         pass = is_an_alias(params, shell, j);
         if (pass != 1)
             pass = is_an_builtin(params, shell, j);
-        // if (pass != 1)
-        //     pass = is_an_path(params, shell, j);
         if (pass == 0) {
             my_puterr(params->content[j]);
             my_puterr(": Command not found.\n");
-        }
+            shell->status = 1;
+        } else
+            shell->status = 0;
     }
     return (0);
 }
