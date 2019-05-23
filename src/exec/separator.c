@@ -25,22 +25,22 @@ static bool and(shell_t *shell)
     return (false);
 }
 
-static bool semicolon(shell_t *shell)
+static bool semicolon(UNUSED shell_t *shell)
 {
-    (void) shell;
     return (true);
 }
 
 static void check_exec(vec_t *command, shell_t *shell, size_t *i,
-        bool (*ptr)(shell_t *shell))
+        bool (**ptr)(shell_t *shell))
 {
-    if (ptr(shell)) {
+    if ((*ptr)(shell)) {
         exec(command->content[*i], shell);
     } else {
         while (*i < command->element && strcmp(command->content[*i], ";")) {
             free(command->content[*i]);
             *i = *i + 1;
         }
+        (*ptr) = semicolon;
     }
 }
 
@@ -55,7 +55,7 @@ void exec_separator(char *str, shell_t *shell)
     for (size_t i = 0; i < command->element; i++) {
         index = index_of_str(command->content[i], sep);
         if (index == -1) {
-            check_exec(command, shell, &i, ptr);
+            check_exec(command, shell, &i, &ptr);
         } else {
             free(command->content[i]);
             ptr = functions[index];
