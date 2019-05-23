@@ -50,10 +50,16 @@ void my_time(FILE *file)
 {
     time_t now = time(NULL);
     struct tm *now_tm = localtime(&now);
-    int hour = now_tm->tm_hour;
-    int min = now_tm->tm_min;
+    char *hour = int_to_str(now_tm->tm_hour);
+    char *min = int_to_str(now_tm->tm_min);
 
-    fprintf(file, "%d:%d", hour, min);
+    if (strlen(hour) == 1)
+        hour = my_realloc("0", hour);
+    if (strlen(min) == 1)
+        min = my_realloc("0", min);
+    fprintf(file, "%s:%s", hour, min);
+    free(min);
+    free(hour);
 }
 
 void nb_history(char *str, int line, FILE *file)
@@ -62,6 +68,7 @@ void nb_history(char *str, int line, FILE *file)
 
     for (int i = 0; i < 6 - (int) strlen(nb) - 1; i += 1)
         fprintf(file, " ");
+    free(nb);
     fprintf(file, "%d  ", line);
     my_time(file);
     fprintf(file, "   %s", str);

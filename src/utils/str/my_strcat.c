@@ -26,7 +26,7 @@ char *my_strcat(const char *src, const char *src_bis)
     return (str);
 }
 
-char *vec_to_str(vec_t *cmd, int n)
+char *vec_to_str(vec_t *cmd)
 {
     char *dest = "";
 
@@ -36,7 +36,6 @@ char *vec_to_str(vec_t *cmd, int n)
             dest = my_realloc(dest, " ");
     }
     dest = my_realloc(dest, "\n");
-    if (n)
-        write_history(dest);
+    write_history(dest);
     return (dest);
 }
