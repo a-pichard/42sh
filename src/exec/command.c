@@ -71,8 +71,7 @@ int command(vec_t *command, shell_t *shell, int files[2])
     int n = index_of_str((char *)(command->content[0]), builtin);
     int pid;
 
-    if (n == 2 || n == 3 || n == 4 || (n == 1 &&
-            (int)command->element > 1) || n == 6) {
+    if (files[1] == 1 && n != -1) {
         (func[n])(command, shell);
         return (-1);
     }
