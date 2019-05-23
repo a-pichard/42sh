@@ -74,21 +74,22 @@ void write_history(char *str)
 {
     FILE *file;
     char *mem = NULL;
-    int line = 1;
-    size_t size = 0;
+    int line = 0;
     int fd = open(".42history", O_WRONLY | O_APPEND | O_CREAT, 0664);
 
     if (fd != -1) {
         write(fd, " ", 1);
         close(fd);
     }
-    file = fopen(".42history", "a");
+    file = fopen(".42history", "r");
     if (!strlen(str))
         return;
-    while (file != NULL && getline(&mem, &size, file) != -1) {
+    for (size_t size = 0; file != NULL &&
+            getline(&mem, &size, file) != -1; size = 0)
         line += 1;
-        size = 0;
-    }
-    if (file != NULL)
+    if (file != NULL) {
+        fclose(file);
+        file = fopen(".42history", "a");
         nb_history(str, line, file);
+    }
 }
