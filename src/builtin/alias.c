@@ -37,12 +37,10 @@ vec_t *replace_alias(vec_t *cmd, shell_t *shell)
     vec_t *vec;
     char *separators[] = SEPARATOR;
 
-    for (int i = 0; i < (int) cmd->element; i += 1) {
-        for (int j = 0; j < (int) shell->alias->element; j += 1)
-            (!strcmp((char *)cmd->content[i], ((alias_t *)shell->alias->
-            content[j])->alias)) ? cmd->content[i] =
-            my_realloc(((alias_t *)shell->alias->content[j])->cmd, "") : 0;
-    }
+    for (int j = 0; j < (int) shell->alias->element; j += 1)
+        (!strcmp((char *)cmd->content[0], ((alias_t *)shell->alias->
+        content[j])->alias)) ? cmd->content[0] =
+        my_realloc(((alias_t *)shell->alias->content[j])->cmd, "") : 0;
     dest = my_realloc((char *) cmd->content[0], "");
     for (int i = 1; i < (int) cmd->element; i += 1) {
         dest = my_realloc(dest, " ");
