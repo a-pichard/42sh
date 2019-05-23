@@ -27,17 +27,15 @@ static void exit_shell(shell_t *shell, char *cmd)
 
 void exec(char *str, shell_t *shell)
 {
-    vec_t *vec;
     char *separators[] = SEPARATOR;
+    vec_t *vec = my_str_to_word_tab_plus(str, " \t\n", separators);
 
-    vec = my_str_to_word_tab_plus(str, " \t\n", separators);
     if (vec->element == 0) {
         free(str);
         destroy_vec(vec, free);
         return;
     }
     free(str);
-    str = NULL;
     vec_t *pid = redirection(vec, shell);
     for (int i = 0; pid != NULL && i < (int) pid->element; i++) {
         int s = 0;

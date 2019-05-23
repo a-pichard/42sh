@@ -57,8 +57,6 @@ int my_which(vec_t *params, shell_t *shell)
         pass = is_an_alias(params, shell, j);
         if (pass != 1)
             pass = is_an_builtin(params, shell, j);
-        // if (pass != 1)
-        //     pass = is_an_path(params, shell, j);
         if (pass == 0) {
             my_puterr(params->content[j]);
             my_puterr(": Command not found.\n");
