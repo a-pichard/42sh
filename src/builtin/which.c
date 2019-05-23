@@ -11,6 +11,7 @@
 #include "string.h"
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 int is_an_alias(vec_t *params, shell_t *shell, int j)
 {
@@ -61,6 +62,7 @@ int is_an_path(vec_t *params, int j)
             return (1);
         }
     }
+    destroy_vec(path_tab, free);
     return (0);
 }
 
