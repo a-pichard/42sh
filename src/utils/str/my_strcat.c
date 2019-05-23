@@ -9,15 +9,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *my_strcat(char *src, char *src_bis)
+char *my_strcat(const char *src, const char *src_bis)
 {
     int len;
     char *str;
     int i;
     int j;
 
-    if (src == NULL)
-        return (src_bis);
     len = strlen(src) + strlen(src_bis);
     str = xmalloc(sizeof(char) * (len + 1));
     for (i = 0; src[i] != '\0'; i++)
