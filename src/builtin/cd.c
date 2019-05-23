@@ -46,7 +46,7 @@ int go_home(shell_t *shell)
     if (shell->prev_dir != NULL)
         free(shell->prev_dir);
     shell->prev_dir = temp_prev;
-    return (1);
+    return (0);
 }
 
 int my_cd(vec_t *params, shell_t *shell)
