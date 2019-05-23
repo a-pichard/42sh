@@ -35,7 +35,7 @@ int index_of_str(char *str, char **tab);
 vec_t *my_str_to_word_tab_plus(char *str, char *separators,
 char **separator_and_word);
 void my_putnbr(int n);
-char *my_strcat(char *src, char *src_bis);
+char *my_strcat(const char *src, const char *src_bis);
 char *vec_to_str(vec_t *cmd, int n);
 
 typedef struct {

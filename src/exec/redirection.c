@@ -18,7 +18,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-bool is_command_valid(cmd_t *command)
+bool is_command_valid(const cmd_t *command)
 {
     int in = 0;
     int out = 0;
@@ -33,11 +33,10 @@ bool is_command_valid(cmd_t *command)
         (((char *)command->sep->content[i])[0] == '>') ? in = 0 : 0;
         (((char *)command->sep->content[i])[0] == '<') ? in += 1 : 0;
         (((char *)command->sep->content[i])[0] == '<') ? out = 0 : 0;
-        (in >= 2) ? my_putstr("Ambiguous input redirect.\n") : 0;
-        (out >= 2) ? my_putstr("Ambiguous output redirect.\n") : 0;
-        if (in >= 2)
-            return (false);
-        if (out >= 2)
+        (in >= 2) ? my_puterr("Ambiguous input redirect.\n") : 0;
+        (out >= 2) ? my_puterr("Ambiguous output redirect.\n") : 0;
+        (command->cmd[i + 1] == NULL) ? my_puterr("NULL command"): 0;
+        if (out >= 2 || in >= 2 || command->cmd[i + 1] == NULL)
             return (false);
     }
     return (true);
