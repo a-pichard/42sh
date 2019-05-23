@@ -35,9 +35,9 @@ bool is_command_valid(const cmd_t *command)
         (((char *)command->sep->content[i])[0] == '<') ? out = 0 : 0;
         (in >= 2) ? my_puterr("Ambiguous input redirect.\n") : 0;
         (out >= 2) ? my_puterr("Ambiguous output redirect.\n") : 0;
-        (command->cmd[i + 1] == NULL) ?
-            my_puterr("Missing name for redirect.\n"): 0;
-        if (out >= 2 || in >= 2 || command->cmd[i + 1] == NULL)
+        (!command->cmd[i + 1]) ? my_puterr("Missing name for redirect.\n"): 0;
+        (!command->cmd[i]) ? my_puterr("Invalid null command.\n"): 0;
+        if (out >= 2 || in >= 2 || !command->cmd[i + 1] || !command->cmd[i])
             return (false);
     }
     return (true);
