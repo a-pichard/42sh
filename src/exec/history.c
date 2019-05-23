@@ -60,11 +60,12 @@ int pars_history(vec_t *cmd, vec_t *file, int i, int *mem)
             return (puterr_str((char *)cmd->content[i],
                 ": Event not found.\n", 1));
         br = 0;
-        if ((nb && !file) || (!(nb = pars_nb(nb, &file)) && file == NULL))
+        if ((nb && !file) || (nb && !(nb = pars_nb(nb, &file)) && file == NULL))
             return (puterr_nb(nb, ": Event not found.\n", 1));
-        for (int k = 0; nb && k < (int)file->element; k += 1)
+        for (int k = 0; nb && k < (int)file->element; k += 1) {
             (nb == my_atoi_d((char *)file->content[k])) ?
                 cmd = put_hist(cmd, i, (char *)file->content[k], &br) : 0;
+        }
         if (nb && !br)
             return (puterr_nb(nb, ": Event not found.\n", 1));
         (nb) ? *mem = 0 : 0;
