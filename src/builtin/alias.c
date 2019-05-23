@@ -56,9 +56,8 @@ int my_alias(vec_t *params, shell_t *shell)
     alias_t *alias;
     char *dest;
 
-    shell->status = 0;
     if (params->element <= 2)
-        return (0);
+        return (shell->status = 1);
     ((alias = malloc(sizeof(alias_t))) == NULL)?my_puterr("malloc error\n"):0;
     alias->alias = my_realloc((char *) params->content[1], "");
     dest = my_realloc((char *) params->content[2], "");
@@ -68,5 +67,5 @@ int my_alias(vec_t *params, shell_t *shell)
     }
     alias->cmd = dest;
     push(shell->alias, alias);
-    return (0);
+    return (shell->status = 0);
 }
