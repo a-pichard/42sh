@@ -46,58 +46,49 @@ char *int_to_str(int n)
     return (my_revstr(dest));
 }
 
-void my_time(int fd)
+void my_time(FILE *file)
 {
     time_t now = time(NULL);
     struct tm *now_tm = localtime(&now);
-    char *hour = int_to_str(now_tm->tm_hour);
-    char *min = int_to_str(now_tm->tm_min);
-    char d = ':';
+    int hour = now_tm->tm_hour;
+    int min = now_tm->tm_min;
 
-    write(fd, hour, 2);
-    write(fd, &d, 1);
-    write(fd, min, 2);
-    free(hour);
-    free(min);
+    fprintf(file, "%d:%d", hour, min);
 }
 
-void nb_history(char *str, int line, FILE *file, int fd)
+void nb_history(char *str, int line, FILE *file)
 {
     char *nb = int_to_str(line);
-    char s = ' ';
 
-    for (int i = 0; i < 6 - (int) strlen(nb); i += 1)
-        write(fd, &s, 1);
-    write(fd, nb, (int) strlen(nb));
-    write(fd, &s, 1);
-    write(fd, &s, 1);
-    my_time(fd);
-    write(fd, &s, 1);
-    write(fd, &s, 1);
-    write(fd, &s, 1);
-    write(fd, str, (int) strlen(str));
-    free(nb);
+    for (int i = 0; i < 6 - (int) strlen(nb) - 1; i += 1)
+        fprintf(file, " ");
+    fprintf(file, "%d  ", line);
+    my_time(file);
+    fprintf(file, "   %s", str);
     if (str[strlen(str) - 1] != '\n')
-        write(fd, "\n", 1);
-    (file != NULL) ? fclose(file) : 0;
-    close(fd);
+        fprintf(file, "\n");
+    fclose(file);
 }
 
 void write_history(char *str)
 {
-    FILE *file = fopen(".42history", "r");
-    int fd = open(".42history", O_CREAT | O_WRONLY | O_APPEND, 0664);
+    FILE *file;
     char *mem = NULL;
     int line = 1;
     size_t size = 0;
+    int fd = open(".42history", O_WRONLY | O_APPEND | O_CREAT, 0664);
 
+    if (fd != -1) {
+        write(fd, " ", 1);
+        close(fd);
+    }
+    file = fopen(".42history", "a");
     if (!strlen(str))
         return;
-    if (fd == -1)
-        my_puterr("open err\n");
     while (file != NULL && getline(&mem, &size, file) != -1) {
         line += 1;
         size = 0;
     }
-    nb_history(str, line, file, fd);
+    if (file != NULL)
+        nb_history(str, line, file);
 }

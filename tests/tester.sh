@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MYSHELL="$PWD/../42sh"
-REFER="/bin/tcsh -f"
+REFER="/bin/tcsh"
 TRAPSIG=0
 
 CAT=`which cat`

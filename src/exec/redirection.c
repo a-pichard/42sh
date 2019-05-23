@@ -102,7 +102,7 @@ static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
     } else if (tmp != NULL && is_redir(tmp)) {
         if (!strcmp(tmp, ">") || !strcmp(tmp, ">>"))
             files[1] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, ">>")?
-            O_WRONLY | O_CREAT | O_APPEND:O_WRONLY | O_TRUNC | O_CREAT, 0644);
+            O_WRONLY | O_CREAT | O_APPEND:O_WRONLY | O_TRUNC | O_CREAT, 0664);
         else {
             files[0] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, "<<")?
             O_RDONLY : O_RDONLY, 0644);
