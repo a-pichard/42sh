@@ -51,7 +51,7 @@ static void add_pid(vec_t *vec, int pid)
     push(vec, new);
 }
 
-static void get_user_stdin_input(int fd[2], char *arg)
+static void get_user_stdin_input(int fd[2], UNUSED char *arg)
 {
     char *str = NULL;
     size_t n = 0;
@@ -92,8 +92,6 @@ static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
 {
     int tmp_files[2];
     void *tmp = get(cmd->sep, i);
-    int status;
-    pid_t pid;
 
     if (tmp != NULL && !strcmp(tmp, "|")) {
         pipe(tmp_files);

@@ -71,7 +71,6 @@ int command(vec_t *command, shell_t *shell, int files[2])
     int (*function[])(vec_t *params, shell_t *status) = FUNCTION_PTR;
     int n = index_of_str((char *)(command->content[0]), builtin);
     int pid;
-    int status = 0;
 
     if (n == 2 || n == 3 || n == 4 || (n == 1 && (int)command->element > 1) || n == 6) {
         (function[n])(command, shell);
@@ -90,6 +89,5 @@ int command(vec_t *command, shell_t *shell, int files[2])
         } else
             do_command(command, shell);
     }
-    waitpid(pid, &status, 0);
     return (pid);
 }
