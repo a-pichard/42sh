@@ -57,7 +57,11 @@ int my_alias(vec_t *params, shell_t *shell)
     char *dest;
 
     if (params->element <= 2)
+        return (shell->status = 0);
+    if (!strcmp((char *) params->content[1], "alias")) {
+        my_puterr("alias: Too dangerous to alias that.\n");
         return (shell->status = 1);
+        }
     ((alias = malloc(sizeof(alias_t))) == NULL)?my_puterr("malloc error\n"):0;
     alias->alias = my_realloc((char *) params->content[1], "");
     dest = my_realloc((char *) params->content[2], "");
