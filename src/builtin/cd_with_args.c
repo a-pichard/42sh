@@ -17,7 +17,7 @@ static int go_to_path(char *path, shell_t *shell)
 
     if (chdir(path) == -1) {
         check_dir(path, temp_prev);
-        return (0);
+        return (1);
     } else {
         temp_now = getcwd(NULL, 0);
         setenv("PWD", temp_now, 1);
@@ -25,7 +25,7 @@ static int go_to_path(char *path, shell_t *shell)
         if (shell->prev_dir != NULL)
             free(shell->prev_dir);
         shell->prev_dir = temp_prev;
-        return (1);
+        return (0);
     }
 }
 

@@ -172,12 +172,3 @@ CLEAN=""
 TESTS=
 echo "ls; echo $? || cat /usr/bin/zcat || ls && tree -r .."
 [917-END]
-
-[918]
-NAME="history"
-SETUP=""
-CLEAN=""
-TESTS=
-echo "ls"
-echo "!-1 | cat -e"
-[918-END]

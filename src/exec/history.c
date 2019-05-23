@@ -109,5 +109,5 @@ char *history(char *str)
         my_putstr((char *)cmd->content[i]);
         (i + 1 < (int) cmd->element) ? my_putchar(' ') : my_putchar('\n');
     }
-    return (vec_to_str(cmd, n));
+    return (vec_to_str(cmd));
 }

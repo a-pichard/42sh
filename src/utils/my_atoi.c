@@ -65,9 +65,7 @@ int my_atoi_d(char *str)
     char *end;
     long a;
 
-    for (int i = 0; str[i] > '9' || str[i] < '0'; i += 1)
-        str++;
-    str++;
+    for (; *str > '9' || *str < '0'; str++);
     a = my_strtol(str, &end);
     return ((int) a);
 }
