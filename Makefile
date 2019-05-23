@@ -27,9 +27,10 @@ SRC	=	$(shell find $(SRC_DIR)/ -type f -name '*.c')
 
 all:	$(NAME) lol
 
-debug: fclean $(eval CFLAGS	+=	-g) $(NAME)
+debug: fclean $(NAME)
 
-bonus: fclean $(eval CFLAGS	+=	-D __BONUS__) $(NAME) lol
+val:
+	$(eval CFLAGS	+=	-g)
 
 lol:
 	@printf "****************************************\n"
@@ -53,7 +54,10 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 $(NAME)	:	$(OBJ)
 	@$(CC) -o $(NAME) $^
 
+bonus: fclean bon $(NAME) lol
 
+bon:
+	$(eval CFLAGS	+=	-D __BONUS__)
 
 tests_run:
 	@$(V)$(CC) $(CFLAGS) $(SRC_TESTS) -o unit_test -Iinclude -lcriterion --coverage $(LDFLAGS)
