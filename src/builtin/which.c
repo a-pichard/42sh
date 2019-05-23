@@ -9,6 +9,8 @@
 #include "sh.h"
 #include "stdio.h"
 #include "string.h"
+#include <fcntl.h>
+#include <unistd.h>
 
 int is_an_alias(vec_t *params, shell_t *shell, int j)
 {
@@ -30,7 +32,7 @@ int is_an_alias(vec_t *params, shell_t *shell, int j)
     return (0);
 }
 
-int is_an_builtin(vec_t *params, UNUSED shell_t *shell, int j)
+int is_an_builtin(vec_t *params, int j)
 {
     char *builtin[] = {"env", "setenv", "unsetenv", "exit", "cd", "echo", \
     "alias", "which", NULL};
@@ -41,6 +43,24 @@ int is_an_builtin(vec_t *params, UNUSED shell_t *shell, int j)
             my_putstr(": shell built-in command.\n");
             return (1);
         }
+    return (0);
+}
+
+int is_an_path(vec_t *params, int j)
+{
+    char *path = value_env("PATH=");
+    char *separators[] = {NULL};
+    vec_t *path_tab = my_str_to_word_tab_plus(path, ":", separators);
+    char *new_path = NULL;
+
+    for (int i = 0; path_tab->content[i] != NULL; i++) {
+        new_path = strcat(strcat(path_tab->content[i], "/"), params->content[j]);
+        if (access(new_path, X_OK) != 1) {
+            my_putstr(new_path);
+            my_putchar('\n');
+            return (1);
+        }
+    }
     return (0);
 }
 
@@ -57,7 +77,9 @@ int my_which(vec_t *params, shell_t *shell)
     for (int j = 1; params->content[j] != NULL; pass = 0, j++) {
         pass = is_an_alias(params, shell, j);
         if (pass != 1)
-            pass = is_an_builtin(params, shell, j);
+            pass = is_an_builtin(params, j);
+        if (pass != 1)
+            pass = is_an_path(params, j);
         if (pass == 0) {
             my_puterr(params->content[j]);
             my_puterr(": Command not found.\n");
