@@ -14,6 +14,11 @@
 #else
 #define UNUSED //nothing
 #endif
+#ifdef __BONUS__
+#define BONUS 1
+#else
+#define BONUS 0
+#endif
 #define SEPARATOR {";", "||", "&&", "|", ">>", "<<", ">", "<", NULL}
 #define FUNCTION_PTR {my_env, my_setenv, my_unsetenv, my_exit, my_cd, \
     my_echo, my_alias, my_which, NULL};

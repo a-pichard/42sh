@@ -51,7 +51,6 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 $(NAME)	:	$(OBJ)
 	@$(CC) -o $(NAME) $^
 
-
 tests_run:
 	@$(V)$(CC) $(CFLAGS) $(SRC_TESTS) -o unit_test -Iinclude -lcriterion --coverage $(LDFLAGS)
 	printf "$(BLUE)Compile sources and tests : $(GREEN)success$(WHITE)\n"
