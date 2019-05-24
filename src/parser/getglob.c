@@ -57,7 +57,6 @@ bool getglob(vec_t **cmd)
         }
         i++;
     }
-    push(parsed, NULL);
     destroy_vec(*cmd, free);
     *cmd = parsed;
     return ((nb_wildcard == err && nb_wildcard != 0) ? true : false);
