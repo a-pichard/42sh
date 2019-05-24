@@ -31,18 +31,45 @@ char *my_realloc(char *str, char *src)
     return (dest);
 }
 
+void put_alias(char *str, vec_t *alias)
+{
+    for (int i = 0; i < (int) alias->element; i += 1) {
+        if (!strcmp(((alias_t *) alias->content[i])->alias, str)) {
+            my_putstr(((alias_t *) alias->content[i])->cmd);
+            my_putchar('\n');
+        }
+    }
+}
+
+void print_alias(vec_t *params, shell_t *shell)
+{
+    if (params->element == 2) {
+        put_alias((char *)params->content[1], shell->alias);
+        return;
+    }
+    for (int i = 0; i < (int) shell->alias->element; i += 1) {
+        my_putstr(((alias_t *)shell->alias->content[i])->alias);
+        for (int j = 0; j < 7 - (int)
+                strlen(((alias_t *)shell->alias->content[i])->alias); j += 1)
+            my_putchar(' ');
+        my_putchar(' ');
+        my_putstr(((alias_t *)shell->alias->content[i])->cmd);
+        my_putchar('\n');
+    }
+}
+
 int my_alias(vec_t *params, shell_t *shell)
 {
     alias_t *alias;
     char *dest;
     int const stop = params->element;
 
-    if (stop <= 2)
+    if (stop <= 2) {
         return (shell->status = 0);
-    if (!strcmp((char *) params->content[1], "alias")) {
+    } else if (!strcmp((char *) params->content[1], "alias")) {
         my_puterr("alias: Too dangerous to alias that.\n");
         return (shell->status = 1);
-        }
+    }
     ((alias = malloc(sizeof(alias_t))) == NULL)?my_puterr("malloc error\n"):0;
     alias->alias = my_realloc((char *) params->content[1], "");
     dest = my_realloc((char *) params->content[2], "");
