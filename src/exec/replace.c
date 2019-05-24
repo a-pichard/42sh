@@ -96,5 +96,7 @@ vec_t *replace_alias(vec_t *cmd, shell_t *shell)
     }
     vec = my_str_to_word_tab_plus(dest, " \t\n", separators);
     free(dest);
+    if (getglob(&vec) == true)
+        return (NULL);
     return (vec);
 }
