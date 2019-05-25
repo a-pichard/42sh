@@ -128,7 +128,7 @@ vec_t *redirection(vec_t *commands, shell_t *shell)
     for (int i = 0; i < (cmd->nb_cmd - 1); i++) {
         if (update_file(cmd, i, files, &for_next)) {
             mem = replace_alias(cmd->cmd[i], shell);
-            (mem != NULL) ? return_pid = command(mem,shell, files) : 0;
+            (mem != NULL) ? return_pid = command(mem, shell, files) : 0;
             add_pid(pid, return_pid);
             close_fd(files);
             files[0] = for_next;

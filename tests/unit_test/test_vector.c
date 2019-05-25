@@ -9,7 +9,7 @@
 #include <criterion/criterion.h>
 #include "vec.h"
 
-Test(test_vector1, vector)
+Test(vector, test_vector1)
 {
     char *test1 = "salut";
     char *test2 = "caca";
@@ -34,7 +34,7 @@ Test(test_vector1, vector)
     cr_assert_eq(cmp, NULL);
 }
 
-Test(test_vector2, vector)
+Test(vector, test_vector2)
 {
     vec_t *vec = create_vec();
 
@@ -49,7 +49,7 @@ Test(test_vector2, vector)
     destroy_vec(vec, free);
 }
 
-Test(test_vector3, vector)
+Test(vector, test_vector3)
 {
     vec_t *vec = NULL;
 

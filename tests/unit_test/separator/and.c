@@ -10,18 +10,7 @@
 #include "sh.h"
 #include "test.h"
 
-Test(test_semi_col, separator, .init=redirect_all_std)
-{
-    shell_t shell;
-    shell.status = 0;
-    shell.prev_dir = NULL;
-    shell.alias = create_vec();
-
-    exec_separator("echo salut ; echo salut", &shell);
-    cr_assert_stdout_eq_str("salut\nsalut\n");
-}
-
-Test(test_semi_and1, separator, .init=redirect_all_std)
+Test(separator, one_and, .init=redirect_all_std)
 {
     shell_t shell;
     shell.status = 0;
@@ -32,13 +21,13 @@ Test(test_semi_and1, separator, .init=redirect_all_std)
     cr_assert_stdout_eq_str("salut\nsalut\n");
 }
 
-Test(test_semi_and2, separator, .init=redirect_all_std)
+Test(separator, five_and, .init=redirect_all_std)
 {
     shell_t shell;
     shell.status = 0;
     shell.prev_dir = NULL;
     shell.alias = create_vec();
 
-    exec_separator("ls .salut && echo salut", &shell);
-    cr_assert_stdout_eq_str("");
+    exec_separator("echo a && echo b && echo c && echo d && echo e", &shell);
+    cr_assert_stdout_eq_str("a\nb\nc\nd\ne\n");
 }

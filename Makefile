@@ -60,11 +60,11 @@ bon:
 	$(eval CFLAGS	+=	-D __BONUS__)
 
 tests_run:
-	@$(V)$(CC) $(CFLAGS) $(SRC_TESTS) -o unit_test -Iinclude -lcriterion --coverage $(LDFLAGS)
-	printf "$(BLUE)Compile sources and tests : $(GREEN)success$(WHITE)\n"
-	printf "$(BLUE)Launching tests...$(WHITE)\n"
-	./unit_test
-	gcovr --branches --exclude tests
+	@$(CC) $(CFLAGS) $(SRC_TESTS) -o unit_test -Iinclude -Itests/unit_test/ -lcriterion --coverage $(LDFLAGS)
+	@printf "$(BLUE)Compile sources and tests : $(GREEN)success$(WHITE)\n"
+	@printf "$(BLUE)Launching tests...$(WHITE)\n"
+	@./unit_test
+	@gcovr --branches --exclude tests
 
 clean:
 	@rm -Rf $(OBJ_DIR)

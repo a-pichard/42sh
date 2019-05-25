@@ -26,18 +26,16 @@ void my_puterr(char const *str)
 
 void my_putnbr(int n)
 {
-    long k = n;
-    long i;
-
-    if (k < 0) {
+    if (n < 0) {
         my_putchar('-');
-        k = -k;
+        n = -n;
+        my_putnbr(n);
+        return;
     }
-    if (k > 9) {
-        my_putnbr(k / 10);
-        i = k % 10;
-        my_putchar(i + 48);
+    if (n <= 9) {
+        my_putchar('0' + n);
     } else {
-        my_putchar(k + 48);
+        my_putnbr(n / 10);
+        my_putchar('0' + n % 10);
     }
 }

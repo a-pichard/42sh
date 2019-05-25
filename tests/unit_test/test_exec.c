@@ -16,7 +16,8 @@ void redirect_all_std(void)
     cr_redirect_stderr();
 }
 
-Test(echo_pipe, exec, .init=redirect_all_std)
+
+Test(exec, echo_pipe, .init=redirect_all_std)
 {
     shell_t shell;
     char *str = strdup("echo bite | cat -e");
