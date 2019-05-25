@@ -12,7 +12,7 @@ INCL_DIR	=	$(ROOT)/incl
 OBJ_DIR	= $(ROOT)/obj
 SRC_DIR	= $(ROOT)/src
 CFLAGS = -Wall -Wextra -I$(INCL_DIR)
-CC	=	gcc
+CC	=	gcc -g3
 
 GREEN	=	\e[1;32m
 WHITE	=	\e[0m

@@ -79,7 +79,7 @@ static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
         else {
             files[0] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, "<<")?
             O_RDONLY : O_RDONLY, 0644);
-            (!strcmp(tmp, "<<")) ? redirect_stdin_double(tmp, files) : 0;
+            (!strcmp(tmp, "<<")) ? redirect_stdin_double(tmp, files, cmd->cmd[i + 1]) : 0;
         }
         tmp = cmd->cmd[i + 1];
         cmd->cmd[i + 1] = cmd->cmd[i];
