@@ -77,6 +77,7 @@ void close_fd(int files[2]);
 int redirect_stdin_double(void *tmp, int files[2], vec_t *cmd);
 int command(vec_t *command, shell_t *shell, int files[2]);
 vec_t *redirection(vec_t *commands, shell_t *shell);
+bool update_file(cmd_t *cmd, int i, int files[2], int *for_next);
 cmd_t *parser(vec_t *splited_cmd);
 void handle_sigint(int sig);
 int is_redirs(char *str);

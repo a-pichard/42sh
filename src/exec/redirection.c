@@ -63,32 +63,6 @@ static void cmd_destoy(cmd_t *cmd)
     }
 }
 
-static bool update_file(cmd_t *cmd, int i, int files[2], int *for_next)
-{
-    int tmp_files[2];
-    void *tmp = get(cmd->sep, i);
-
-    if (tmp != NULL && !strcmp(tmp, "|")) {
-        pipe(tmp_files);
-        files[1] = tmp_files[1];
-        *for_next = tmp_files[0];
-    } else if (tmp != NULL && is_redir(tmp)) {
-        if (!strcmp(tmp, ">") || !strcmp(tmp, ">>"))
-            files[1] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, ">>")?
-            O_WRONLY | O_CREAT | O_APPEND:O_WRONLY | O_TRUNC | O_CREAT, 0664);
-        else {
-            files[0] = open(get(cmd->cmd[i + 1], 0), !strcmp(tmp, "<<")?
-            O_RDONLY : O_RDONLY, 0644);
-            (!strcmp(tmp, "<<")) ? redirect_stdin_double(tmp, files, cmd->cmd[i + 1]) : 0;
-        }
-        tmp = cmd->cmd[i + 1];
-        cmd->cmd[i + 1] = cmd->cmd[i];
-        cmd->cmd[i] = tmp;
-        return (false);
-    }
-    return (true);
-}
-
 vec_t *redirection(vec_t *commands, shell_t *shell)
 {
     cmd_t *cmd = parser(commands);

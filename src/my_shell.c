@@ -25,10 +25,25 @@ static void exit_shell(shell_t *shell, char *cmd)
     exit(status);
 }
 
+static void parse_pid(vec_t *pid, shell_t *shell)
+{
+    int s;
+
+    for (int i = 0; pid != NULL && i < (int) pid->element; i++) {
+        s = 0;
+        if (*(int *)(pid->content[i]) != -1) {
+            waitpid(*(int *)(pid->content[i]), &s, 0);
+            (WIFSIGNALED(s))?print_err(s, shell):
+                (shell->status = WEXITSTATUS(s));
+        }
+    }
+}
+
 void exec(char *str, shell_t *shell)
 {
     char *separators[] = SEPARATOR;
     vec_t *vec = my_str_to_word_tab_plus(str, " \t\n", separators);
+    vec_t *pid;
 
     if (vec->element == 0) {
         free(str);
@@ -36,15 +51,8 @@ void exec(char *str, shell_t *shell)
         return;
     }
     free(str);
-    vec_t *pid = redirection(vec, shell);
-    for (int i = 0; pid != NULL && i < (int) pid->element; i++) {
-        int s = 0;
-        if (*(int *)(pid->content[i]) != -1) {
-            waitpid(*(int *)(pid->content[i]), &s, 0);
-            (WIFSIGNALED(s))?print_err(s, shell):
-                (shell->status = WEXITSTATUS(s));
-        }
-    }
+    pid = redirection(vec, shell);
+    parse_pid(pid, shell);
     destroy_vec(pid, free);
     destroy_vec(vec, free);
 }
