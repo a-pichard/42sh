@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2019
+** PSU_42sh_2018
+** File description:
+** test_str
+*/
 
 #include <criterion/criterion.h>
 #include "vec.h"

@@ -53,13 +53,13 @@ int is_an_path(vec_t *params, int j, int option)
 {
     char *path = value_env("PATH=");
     char *separators[] = {NULL};
-    vec_t *path_tab = my_str_to_word_tab_plus(path, ":", separators);
+    vec_t *ptab = my_str_to_word_tab_plus(path, ":", separators);
     char *new_path = NULL;
     int pass = 0;
     int pass_where = 0;
 
-    for (int i = 0; path_tab->content[i] != NULL; i++) {
-        new_path = strcat(strcat(path_tab->content[i], "/"), params->content[j]);
+    for (int i = 0; ptab->content[i] != NULL; i++) {
+        new_path = strcat(strcat(ptab->content[i], "/"), params->content[j]);
         if (access(new_path, X_OK) == 0) {
             my_putstr(new_path);
             my_putchar('\n');
@@ -68,10 +68,9 @@ int is_an_path(vec_t *params, int j, int option)
         }
         if (pass == 1 && option == 0)
             return (1);
-
         pass = 0;
     }
-    destroy_vec(path_tab, free);
+    destroy_vec(ptab, free);
     return ((option == 1) ? pass_where : 0);
 }
 
@@ -79,11 +78,10 @@ int my_which(vec_t *params, shell_t *shell)
 {
     int pass = 0;
 
-    shell->status = 0;
+    shell->status = (params->element == 1)?1:0;
     if (params->element == 1) {
         my_puterr(params->content[0]);
         my_puterr(": Too few arguments.\n");
-        shell->status = 1;
         return (1);
     }
     for (int j = 1; params->content[j] != NULL; pass = 0, j++) {

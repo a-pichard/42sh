@@ -47,6 +47,7 @@ char *my_strcat(const char *src, const char *src_bis);
 char *vec_to_str(vec_t *cmd);
 char *int_to_str(int n);
 char *space_to_point(char *str);
+int redirect_stdin_double(void *tmp, int files[2]);
 
 typedef struct {
     int nb_cmd;
