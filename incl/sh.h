@@ -84,7 +84,7 @@ bool is_redir(const char *str);
 vec_t *parser_sep(char *cmd);
 void print_err(int s, shell_t *shell);
 void my_exiterr(char *str, char *err, int n);
-bool getglob(vec_t **cmd);
+bool getglob(vec_t **cmd, int *status);
 char *myrealloc(char *old, char c);
 void exec(char *str, shell_t *shell);
 void exec_separator(char *str, shell_t *shell);

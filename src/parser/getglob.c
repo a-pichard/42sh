@@ -23,7 +23,7 @@ static int is_wildcard(char *str)
     return (0);
 }
 
-static bool do_glob(vec_t *parsed, char *arg)
+static bool get_data(vec_t *parsed, char *arg)
 {
     glob_t glb;
     int r;
@@ -41,7 +41,7 @@ static bool do_glob(vec_t *parsed, char *arg)
     return (ret);
 }
 
-bool getglob(vec_t **cmd)
+bool do_glob(vec_t **cmd)
 {
     vec_t *parsed = create_vec();
     int i = 0;
@@ -52,7 +52,7 @@ bool getglob(vec_t **cmd)
         if (!is_wildcard((char *)(*cmd)->content[i])) {
             push(parsed, strdup((char *)(*cmd)->content[i]));
         } else {
-            err += do_glob(parsed, (char *)(*cmd)->content[i]);
+            err += get_data(parsed, (char *)(*cmd)->content[i]);
             nb_wildcard++;
         }
         i++;
@@ -60,4 +60,18 @@ bool getglob(vec_t **cmd)
     destroy_vec(*cmd, free);
     *cmd = parsed;
     return ((nb_wildcard == err && nb_wildcard != 0) ? true : false);
+}
+
+bool getglob(vec_t **cmd, int *status)
+{
+    bool r = do_glob(cmd);
+
+    if (r == true) {
+        my_puterr((char *)(*cmd)->content[0]);
+        my_puterr(": No match.\n");
+        *status = 1;
+    } else {
+        *status = 0;
+    }
+    return (r);
 }
