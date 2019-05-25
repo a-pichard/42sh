@@ -67,6 +67,11 @@ void myshell(shell_t *shell)
         prompt();
         if ((r = getline(&str, &n, stdin)) < 1)
             exit_shell(shell, str);
+        if (strlen(str) < 2) {
+            free(str);
+            str = NULL;
+            continue;
+        }
         if (BONUS)
             str = history(str);
         (str != NULL) ? exec_separator(str, shell) : 0;
