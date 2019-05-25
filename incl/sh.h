@@ -72,6 +72,9 @@ void myshell(shell_t *shell);
 void prompt(void);
 void init_shell(shell_t *shell);
 void close_fd(int files[2]);
+bool or(shell_t *shell);
+bool and(shell_t *shell);
+bool semicolon(UNUSED shell_t *shell);
 
 //command
 int redirect_stdin_double(void *tmp, int files[2], vec_t *cmd);
