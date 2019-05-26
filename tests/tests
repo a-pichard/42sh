@@ -172,3 +172,20 @@ CLEAN=""
 TESTS=
 echo "ls; echo $? || cat /usr/bin/zcat || ls && tree -r .."
 [917-END]
+
+[918]
+NAME="Project test"
+SETUP=""
+CLEAN=""
+TESTS=
+echo "cd ; </etc/hosts od -c | grep xx | wc >> /tmp/z -l ; cd - && echo “OK”"
+[918-END]
+
+[919]
+NAME="globbing"
+SETUP=""
+CLEAN=""
+TESTS=
+echo "ls *.c"
+echo "ls ../src/*.c"
+[919-END]
