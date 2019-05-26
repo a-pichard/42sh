@@ -29,6 +29,8 @@ static void parse_pid(vec_t *pid, shell_t *shell)
 {
     int s;
 
+    if (pid == NULL)
+        shell->status = 1;
     for (int i = 0; pid != NULL && i < (int) pid->element; i++) {
         s = 0;
         if (*(int *)(pid->content[i]) != -1) {
