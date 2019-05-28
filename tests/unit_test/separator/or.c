@@ -31,3 +31,14 @@ Test(separator, five_or, .init=redirect_all_std)
     exec_separator("echo a || echo b || echo c || echo d || echo e", &shell);
     cr_assert_stdout_eq_str("a\n");
 }
+
+Test(separator, or_fail, .init=redirect_all_std)
+{
+    shell_t shell;
+    shell.status = 0;
+    shell.prev_dir = NULL;
+    shell.alias = create_vec();
+
+    exec_separator("zaez a || echo b", &shell);
+    cr_assert_stdout_eq_str("b\n");
+}
