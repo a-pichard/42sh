@@ -14,3 +14,10 @@
 * cd 42sh
 * make
 * ./42sh
+
+# Contributors
+* Adrien PICHARD - adrien.pichard@epitech.eu
+* Armand PICARD - armand.picard@epitech.eu
+* Thomas ROUX - thomas1.roux@epitech.eu
+* Rémi BESSET - remi.besset@epitech.eu
+* Mahé QUEMENER - mahe.quemener@epitech.eu
