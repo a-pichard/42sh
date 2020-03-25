@@ -1,5 +1,5 @@
 # Introduction
-42sh is a year end project writen in C. The project aim to reproduce a shell inspired from TCSH.
+42sh is an EPITECH year end project writen in C. The project aim to reproduce a shell inspired from TCSH.
 
 * Grade: A
 * Final Mark: 30,5 / 43
